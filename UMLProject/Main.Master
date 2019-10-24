@@ -10,6 +10,9 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <header style="background-color: #CCFFCC">
+       
+        encabezado de pagina</header>
     <form id="form1" runat="server">
     <div>
         <asp:ContentPlaceHolder ID="content" runat="server">
@@ -17,5 +20,8 @@
         </asp:ContentPlaceHolder>
     </div>
     </form>
+    <footer style="background-color: #CCFFCC"> 
+        <small>todos los derechos reservados</small>
+    </footer>
 </body>
 </html>
