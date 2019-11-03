@@ -1,27 +1,160 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="UMLProject.Main" %>
 
 <!DOCTYPE html>
+<html class="no-js" lang="es">
+<head>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
     <title></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+    <link href="materialize/css/materialize.css" rel="stylesheet" />
+    <link href="materialize/css/materialize.min.css" rel="stylesheet" />
+    <script src="materialize/js/materialize.js"></script>
+    <script src="materialize/js/materialize.min.js"></script>
+    <!--inicializando iconos-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
 </head>
+
 <body>
-    <header style="background-color: #CCFFCC">
-       
-        encabezado de pagina</header>
-    <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="content" runat="server">
-        
-        </asp:ContentPlaceHolder>
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    </form>
-    <footer style="background-color: #CCFFCC"> 
-        <small>todos los derechos reservados</small>
-    </footer>
+
+    <div id="top" class="s-wrap site-wrapper">
+
+        <!-- site header
+        ================================================== -->
+        <header class="s-header">
+
+            <div class="header__top">
+
+                <!-- toggles -->
+
+                <a href="#0" class="header__menu-toggle"><span>Menu</span></a>
+
+            </div>
+            <!-- end header__top -->
+
+            <nav class="header__nav-wrap">
+
+                <ul class="header__nav">
+                    <li class="current"><a href="Default.aspx" title="">Inicio</a></li>
+                    <!--<li class="has-children">
+                        <a href="#0" title="">Categories</a>
+                        <ul class="sub-menu">
+                        <li><a href="category.html">Lifestyle</a></li>
+                        <li><a href="category.html">Health</a></li>
+                        <li><a href="category.html">Family</a></li>
+                        <li><a href="category.html">Management</a></li>
+                        <li><a href="category.html">Travel</a></li>
+                        <li><a href="category.html">Work</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="#0" title="">Blog Posts</a>
+                        <ul class="sub-menu">
+                        <li><a href="single-video.html">Video Post</a></li>
+                        <li><a href="single-audio.html">Audio Post</a></li>
+                        <li><a href="single-gallery.html">Gallery Post</a></li>
+                        <li><a href="single-standard.html">Standard Post</a></li>
+                        </ul>
+                    </li>-->
+                    <!--<li><a href="styles.html" title="">Compañia</a></li>
+                    <li><a href="page-about.html" title="">Productos</a></li>
+                    <li><a href="page-contact.html" title="">Infraestructura</a></li>
+                    <li><a href="page-contact.html" title="">Responsabilidad</a></li>
+                    <li><a href="page-contact.html" title="">Clientes y Proveedores</a></li>-->
+                    <li><a href="Cooperativa.aspx" title="">Cooperativa</a></li>
+                    <li><a href="Corta.aspx" title="">Corta</a></li>
+                    <li><a href="Info_Bancaria.aspx" title="">Informacion Bancaria</a></li>
+                    <li><a href="Pesaje.aspx" title="">Pesaje</a></li>
+                    <li><a href="Transporte.aspx" title="">Transporte</a></li>
+                    <li><a href="/uml/contents/diagrams.html" title="">UML</a></li>
+                    <li><a href="Usuarios.aspx" title="">Registrarse</a></li>
+                    <li><a href="login.aspx" title="">Login</a></li>
+                    
+                </ul>
+                <!-- end header__nav -->
+
+            </nav>
+            <!-- end header__nav-wrap -->
+
+
+
+        </header>
+        <!-- end s-header -->
+
+        <div class="s-content">
+
+            <div class="masonry-wrap">
+
+                <div class="masonry">
+
+                    <div class="grid-sizer"></div>
+
+                    <article class="masonry__brick entry format-standard animate-this">
+                        <form id="form1" runat="server">
+                            <div>
+                                <asp:ContentPlaceHolder ID="content" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </div>
+                        </form>
+                    </article>
+                    <!-- end article -->
+
+                </div>
+                <!-- end masonry -->
+
+            </div>
+            <!-- end masonry-wrap -->
+
+
+
+        </div>
+        <!-- end s-content -->
+
+
+        <!-- footer
+        ================================================== -->
+        <footer class="s-footer">
+        </footer>
+
+    </div>
+    <!-- end s-wrap -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
 </body>
 </html>
