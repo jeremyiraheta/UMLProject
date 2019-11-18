@@ -13,5 +13,10 @@ namespace UMLProject
         {
 
         }
+
+        protected void lOK_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

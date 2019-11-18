@@ -9,12 +9,9 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-    <div class="s-content">
+   <article class="column large-full entry format-standard">
 
-        <div class="masonry-wrap">
-
-            <div class="masonry" style="position: relative; right:100%; height: 5388.88px;">
-                <article class="column large-full entry format-standard">
+       <h2>Crear Usuario</h2>
                     <!--botones texbox-->
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtusername" runat="server" Width="278px"></asp:TextBox>
@@ -24,7 +21,6 @@
                         <asp:TextBox ID="txtpassword" TextMode="Password" runat="server" Width="278px"></asp:TextBox>
                         <label for="password">Contraseña</label>
                     </div>
-                    <br />
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtpassword2" TextMode="Password" runat="server" Width="278px"></asp:TextBox>
                         <label for="confirm_password">Confirmar Contraseña</label>
@@ -61,8 +57,5 @@
                     </div>
                     <br />
                     <asp:HyperLink ID="lOK" CssClass="waves-effect waves-light btn-large" runat="server">REGISTRARSE</asp:HyperLink>
-                    </article>
-                </div>            
-            </div>        
-            </div>            
+                    </article>    
 </asp:Content>
