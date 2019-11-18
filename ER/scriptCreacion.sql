@@ -1,0 +1,149 @@
+
+/*==============================================================*/
+/* Table: MENUS                                                 */
+/*==============================================================*/
+create table MENUS (
+   ID_MENU              int                  identity,
+   ID_PARENT            int                  null,
+   NOMBRE               varchar(100)         not null,
+   URL                  varchar(100)         not null,
+   constraint PK_MENUS primary key (ID_MENU),
+   constraint FK_MENUS_REFERENCE_MENUS foreign key (ID_PARENT)
+      references MENUS (ID_MENU)
+)
+go
+
+/*==============================================================*/
+/* Table: ARTICULOS                                             */
+/*==============================================================*/
+create table ARTICULOS (
+   ID_ARTICULO          int                  identity,
+   ID_MENU              int                  null,
+   NOMBRE               varchar(200)         not null,
+   CONTENIDO            text                 null,
+   constraint PK_ARTICULOS primary key (ID_ARTICULO),
+   constraint FK_ARTICULO_REFERENCE_MENUS foreign key (ID_MENU)
+      references MENUS (ID_MENU)
+)
+go
+
+/*==============================================================*/
+/* Table: TIPOS_USUARIOS                                        */
+/*==============================================================*/
+create table TIPOS_USUARIOS (
+   ID_TIPOUSUARIO       int                  identity,
+   NOMBRE               varchar(100)         not null,
+   constraint PK_TIPOS_USUARIOS primary key (ID_TIPOUSUARIO)
+)
+go
+
+/*==============================================================*/
+/* Table: USUARIOS                                              */
+/*==============================================================*/
+create table USUARIOS (
+   ID_USUARIO           varchar(50)          not null,
+   ID_TIPOUSUARIO       int                  null,
+   PASSWORD             varchar(32)          not null,
+   NOMBRE               varchar(200)         not null,
+   APELLIDO             varchar(200)         not null,
+   DUI                  varchar(10)          not null,
+   NIT                  varchar(50)          null,
+   TELEFONO             varchar(10)          null,
+   CORREO               varchar(200)         not null,
+   DIRECCION            varchar(200)         null,
+   constraint PK_USUARIOS primary key (ID_USUARIO),
+   constraint FK_USUARIOS_REFERENCE_TIPOS_US foreign key (ID_TIPOUSUARIO)
+      references TIPOS_USUARIOS (ID_TIPOUSUARIO)
+)
+go
+
+/*==============================================================*/
+/* Table: COOPERATIVA                                           */
+/*==============================================================*/
+create table COOPERATIVA (
+   ID_COOPERATIVA       int                  identity,
+   ID_USUARIO           varchar(50)          null,
+   NOMBRE               varchar(200)         not null,
+   ZONA                 varchar(200)         not null,
+   TELEFONO             varchar(10)          not null,
+   TIPO                 varchar(20)          not null,
+   constraint PK_COOPERATIVA primary key (ID_COOPERATIVA),
+   constraint FK_COOPERAT_REFERENCE_USUARIOS foreign key (ID_USUARIO)
+      references USUARIOS (ID_USUARIO)
+)
+go
+
+/*==============================================================*/
+/* Table: CORTA                                                 */
+/*==============================================================*/
+create table CORTA (
+   ID_CORTA             int                  identity,
+   ID_COOPERATIVA       int                  null,
+   ZONA                 varchar(200)         not null,
+   MAXIMO               decimal(5,2)         not null,
+   constraint PK_CORTA primary key (ID_CORTA),
+   constraint FK_CORTA_REFERENCE_COOPERAT foreign key (ID_COOPERATIVA)
+      references COOPERATIVA (ID_COOPERATIVA)
+)
+go
+
+/*==============================================================*/
+/* Table: MENUS_USUARIOS                                        */
+/*==============================================================*/
+create table MENUS_USUARIOS (
+   ID_TIPOUSUARIO       int                  null,
+   ID_MENU              int                  null,
+   constraint FK_MENUS_US_REFERENCE_TIPOS_US foreign key (ID_TIPOUSUARIO)
+      references TIPOS_USUARIOS (ID_TIPOUSUARIO),
+   constraint FK_MENUS_US_REFERENCE_MENUS foreign key (ID_MENU)
+      references MENUS (ID_MENU)
+)
+go
+
+/*==============================================================*/
+/* Table: PEDIDOS                                               */
+/*==============================================================*/
+create table PEDIDOS (
+   ID_PEDIDO            int                  not null,
+   ID_USUARIO           varchar(50)          null,
+   CANTIDAD             decimal(5,2)         not null,
+   TOTAL                decimal(5,2)         not null,
+   PROCESADO            bit                  not null,
+   constraint PK_PEDIDOS primary key (ID_PEDIDO),
+   constraint FK_PEDIDOS_REFERENCE_USUARIOS foreign key (ID_USUARIO)
+      references USUARIOS (ID_USUARIO)
+)
+go
+
+/*==============================================================*/
+/* Table: PESAJE                                                */
+/*==============================================================*/
+create table PESAJE (
+   ID_PESAJE            int                  identity,
+   ID_COOPERATIVA       int                  null,
+   ZONA                 varchar(200)         not null,
+   HORARIOS             varchar(200)         not null,
+   LIMITE               decimal(5,2)         not null,
+   constraint PK_PESAJE primary key (ID_PESAJE),
+   constraint FK_PESAJE_REFERENCE_COOPERAT foreign key (ID_COOPERATIVA)
+      references COOPERATIVA (ID_COOPERATIVA)
+)
+go
+
+/*==============================================================*/
+/* Table: TRANSPORTE                                            */
+/*==============================================================*/
+create table TRANSPORTE (
+   ID_TRANSPORTE        int                  identity,
+   ID_COOPERATIVA       int                  null,
+   TIPO                 varchar(50)          not null,
+   ZONA                 varchar(200)         not null,
+   HORARIOS             varchar(200)         not null,
+   LIMITE               decimal(5,2)         not null,
+   constraint PK_TRANSPORTE primary key (ID_TRANSPORTE),
+   constraint FK_TRANSPOR_REFERENCE_COOPERAT foreign key (ID_COOPERATIVA)
+      references COOPERATIVA (ID_COOPERATIVA)
+)
+go
+
+insert into TIPOS_USUARIOS(NOMBRE) values('Admin'),('Cliente'),('Cooperativa')
