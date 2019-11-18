@@ -30,8 +30,7 @@
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content'>
                         <li><a href="#!">Cliente</a></li>
-                        <li><a href="#!">Cooperativa</a></li>                        
-                        <li><a href="#!">Ingenio</a></li>                        
+                        <li><a href="#!">Cooperativa</a></li>                                             
                     </ul>
                     <br />
                     <!------------------------------------------------------------------------------------------------------->

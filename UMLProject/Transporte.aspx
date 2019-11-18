@@ -20,15 +20,15 @@
                     <br />
             </div>
         <div class="input-field col s6 row">
-               <asp:TextBox ID="txtZona" runat="server"></asp:TextBox>
+               <asp:TextBox ID="txtZona" runat="server" Width="278px"></asp:TextBox>
                <label for="zona">Zona</label>
            </div>
         <div class="input-field col s6 row">
-               <asp:TextBox ID="txtHorario" runat="server"></asp:TextBox>
+               <asp:TextBox ID="txtHorario" runat="server" Width="278px"></asp:TextBox>
                <label for="horario">Horarios</label>
            </div>
         <div class="input-field col s6 row">
-               <asp:TextBox ID="txtLimite" runat="server"></asp:TextBox>
+               <asp:TextBox ID="txtLimite" runat="server" Width="278px"></asp:TextBox>
                <label for="limit_carga">Limite Carga</label>
            </div>
         <div class="row">

@@ -7,15 +7,15 @@
     <article class="column large-full entry format-standard">
         <h2>Agregar Cooperativa</h2>
         <div class="input-field col s6 row">
-               <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
+               <asp:TextBox ID="txtNombre" runat="server" Width="278px"></asp:TextBox>
                <label for="name">Nombre</label>
            </div>
         <div class="input-field col s6 row">
-               <asp:TextBox ID="txtZona" runat="server"></asp:TextBox>
+               <asp:TextBox ID="txtZona" runat="server" Width="278px"></asp:TextBox>
                <label for="zona">Zona</label>
            </div>
         <div class="input-field col s6 row">
-               <asp:TextBox ID="txtTel" runat="server"></asp:TextBox>
+               <asp:TextBox ID="txtTel" runat="server" Width="278px"></asp:TextBox>
                <label for="zona">Telefono</label>
            </div>
         <div class="row">            

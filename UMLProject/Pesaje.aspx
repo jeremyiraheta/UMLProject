@@ -16,19 +16,19 @@
                     <br />
             </div>
         <div class="input-field col s6 row">
-               <input id="zona" type="text" class="validate"/>
+               <asp:TextBox ID="txtZona" runat="server" Width="278px"></asp:TextBox>
                <label for="zona">Zona</label>
            </div>
         <div class="input-field col s6 row">
-               <input id="horario" type="text" class="validate"/>
+               <asp:TextBox ID="txtHorario" runat="server" Width="278px"></asp:TextBox>
                <label for="horario">Horarios</label>
            </div>
         <div class="input-field col s6 row">
-               <input id="limit_peso" type="text" class="validate"/>
+               <asp:TextBox ID="txtLimite" runat="server" Width="278px"></asp:TextBox>
                <label for="limit_peso">Limite Peso</label>
            </div>
         <div class="row">
-            <a class="waves-effect waves-light btn-large">GUARDAR</a>
+            <asp:HyperLink ID="lOK" CssClass="waves-effect waves-light btn-large" runat="server">GUARDAR</asp:HyperLink>
         </div>
     </article>
 </asp:Content>
