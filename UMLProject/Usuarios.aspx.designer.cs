@@ -13,6 +13,15 @@ namespace UMLProject {
     public partial class Usuarios {
         
         /// <summary>
+        /// Control output.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal output;
+        
+        /// <summary>
         /// Control txtusername.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace UMLProject {
         protected global::System.Web.UI.WebControls.TextBox txtpassword2;
         
         /// <summary>
+        /// Control ddTipo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddTipo;
+        
+        /// <summary>
         /// Control txtname.
         /// </summary>
         /// <remarks>
@@ -47,6 +65,15 @@ namespace UMLProject {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtname;
+        
+        /// <summary>
+        /// Control txtApellido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtApellido;
         
         /// <summary>
         /// Control txtdui.
@@ -85,12 +112,21 @@ namespace UMLProject {
         protected global::System.Web.UI.WebControls.TextBox txtemail;
         
         /// <summary>
-        /// Control lOK.
+        /// Control txtDireccion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lOK;
+        protected global::System.Web.UI.WebControls.TextBox txtDireccion;
+        
+        /// <summary>
+        /// Control lOKs.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lOKs;
     }
 }

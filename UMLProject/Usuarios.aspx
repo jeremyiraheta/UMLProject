@@ -10,8 +10,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
    <article class="column large-full entry format-standard">
-
-       <h2>Crear Usuario</h2>
+       <asp:Literal ID="output" runat="server"></asp:Literal>
+       <h2>Crear Usuario</h2>       
                     <!--botones texbox-->
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtusername" runat="server" Width="278px"></asp:TextBox>
@@ -25,18 +25,24 @@
                         <asp:TextBox ID="txtpassword2" TextMode="Password" runat="server" Width="278px"></asp:TextBox>
                         <label for="confirm_password">Confirmar Contraseña</label>
                     </div>                    
-                    <!--Falta dropdown-->
+                    <!--Falta dropdown--
                     <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Tipo de cuenta</a>                    
-                    <!-- Dropdown Structure -->
+                    <!-- Dropdown Structure --
                     <ul id='dropdown1' class='dropdown-content'>
+                        
                         <li><a href="#!">Cliente</a></li>
                         <li><a href="#!">Cooperativa</a></li>                                             
-                    </ul>
+                    </ul> -->
+       <asp:DropDownList ID="ddTipo" runat="server" CssClass="browser-default"></asp:DropDownList>
                     <br />
                     <!------------------------------------------------------------------------------------------------------->
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtname" runat="server" Width="278px"></asp:TextBox>
                         <label for="name">Nombre</label>
+                    </div>
+       <div class="input-field col s6 row">
+                        <asp:TextBox ID="txtApellido" runat="server" Width="278px"></asp:TextBox>
+                        <label for="apellido">Apellido</label>
                     </div>
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtdui" runat="server" Width="278px"></asp:TextBox>
@@ -54,7 +60,11 @@
                         <asp:TextBox ID="txtemail" runat="server" Width="278px"></asp:TextBox>
                         <label for="email">Correo Electronico</label>
                     </div>
+       <div class="input-field col s6 row">
+                        <asp:TextBox ID="txtDireccion" runat="server" Width="278px"></asp:TextBox>
+                        <label for="direccion">Direccion</label>
+                    </div>
                     <br />
-                    <asp:HyperLink ID="lOK" CssClass="waves-effect waves-light btn-large" runat="server">REGISTRARSE</asp:HyperLink>
+                    <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOKs_Click">REGISTRARSE</asp:LinkButton>
                     </article>    
 </asp:Content>

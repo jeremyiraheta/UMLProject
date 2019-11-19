@@ -13,8 +13,7 @@ namespace UMLProject.clases
     {
         public int ID_ARTICULO { get; set; }
         public string NOMBRE { get; set; }
-        public string CONTENIDO { get; set; }
-        public string URL { get; set; }
+        public string CONTENIDO { get; set; }        
     }
     public class Menus
     {
@@ -31,13 +30,9 @@ namespace UMLProject.clases
         public string NOMBRE { get; set; }
     }
     public class Menus_Usuarios
-    {
-        public Menus_Usuarios()
-        {
-            MENUS = new List<Menus>();
-        }
+    {        
         public Tipos_Usuarios TIPO { get; set; }
-        public List<Menus> MENUS { get; }
+        public Menus MENUS { get; set; }
     }
     public class Usuarios
     {
@@ -73,7 +68,7 @@ namespace UMLProject.clases
     {
         public int ID_TRANSPORTE { get; set; }
         public Cooperativa COOPERATIVA { get; set; }
-        public string TIPO { get; set; }
+        public Tipo_Transporte TIPO { get; set; }
         public string ZONA { get; set; }
         public string HORARIOS { get; set; }
         public decimal LIMITE { get; set; }
@@ -92,5 +87,16 @@ namespace UMLProject.clases
         public Cooperativa COOPERATIVA { get; set; }
         public string ZONA { get; set; }
         public decimal MAXIMO { get; set; }
+    }
+    public class Imagenes
+    {
+        public int ID_IMAGEN { get; set; }
+        public string NOMBRE { get; set; }
+        public string URL { get; set; }
+    }
+    public class Tipo_Transporte
+    {
+        public int ID_TIPOTRANSPORTE { get; set; }
+        public string NOMBRE { get; set; }
     }
 }

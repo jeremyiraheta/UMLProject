@@ -12,10 +12,7 @@
                 <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Tipo de transporte</a>                    
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content'>
-                        <li><a href="#!">Remolque vagones</a></li>
-                        <li><a href="#!">Camion</a></li>                        
-                        <li><a href="#!">Trailer</a></li>                        
-                        <li><a href="#!">Rabones</a></li>
+                        <li><a href="#!"></a></li>                        
                     </ul>
                     <br />
             </div>

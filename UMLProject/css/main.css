@@ -2209,8 +2209,8 @@ input::-moz-focus-inner {
   width: 300px;
   background-color: #151515;
   padding-top: 6.4rem;
-  padding-right: 3.2rem;
-  padding-left: 4.4rem;
+  padding-right: 10px;
+  padding-left: 10px;
   overflow-y: auto;
   overflow-x: hidden;
   vertical-align: top;

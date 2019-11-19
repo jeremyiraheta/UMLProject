@@ -1,29 +1,11 @@
-
-/*==============================================================*/
-/* Table: MENUS                                                 */
-/*==============================================================*/
-create table MENUS (
-   ID_MENU              int                  identity,
-   ID_PARENT            int                  null,
-   NOMBRE               varchar(100)         not null,
-   URL                  varchar(100)         not null,
-   constraint PK_MENUS primary key (ID_MENU),
-   constraint FK_MENUS_REFERENCE_MENUS foreign key (ID_PARENT)
-      references MENUS (ID_MENU)
-)
-go
-
 /*==============================================================*/
 /* Table: ARTICULOS                                             */
 /*==============================================================*/
 create table ARTICULOS (
    ID_ARTICULO          int                  identity,
-   ID_MENU              int                  null,
    NOMBRE               varchar(200)         not null,
    CONTENIDO            text                 null,
-   constraint PK_ARTICULOS primary key (ID_ARTICULO),
-   constraint FK_ARTICULO_REFERENCE_MENUS foreign key (ID_MENU)
-      references MENUS (ID_MENU)
+   constraint PK_ARTICULOS primary key (ID_ARTICULO)
 )
 go
 
@@ -88,6 +70,35 @@ create table CORTA (
 go
 
 /*==============================================================*/
+/* Table: IMAGENES                                              */
+/*==============================================================*/
+create table IMAGENES (
+   ID_IMAGEN            int                  identity,
+   NOMBRE               varchar(50)          not null,
+   URL                  varchar(200)         not null,
+   constraint PK_IMAGENES primary key (ID_IMAGEN)
+)
+go
+
+/*==============================================================*/
+/* Table: MENUS                                                 */
+/*==============================================================*/
+create table MENUS (
+   ID_MENU              int                  identity,
+   ID_PARENT            int                  null,
+   ID_ARTICULO          int                  null,
+   NOMBRE               varchar(100)         not null,
+   URL                  varchar(200)         null,
+   ORDEN                int                  not null,
+   constraint PK_MENUS primary key (ID_MENU),
+   constraint FK_MENUS_REFERENCE_MENUS foreign key (ID_PARENT)
+      references MENUS (ID_MENU),
+   constraint FK_MENUS_REFERENCE_ARTICULO foreign key (ID_ARTICULO)
+      references ARTICULOS (ID_ARTICULO)
+)
+go
+
+/*==============================================================*/
 /* Table: MENUS_USUARIOS                                        */
 /*==============================================================*/
 create table MENUS_USUARIOS (
@@ -131,19 +142,32 @@ create table PESAJE (
 go
 
 /*==============================================================*/
+/* Table: TIPO_TRANSPORTE                                       */
+/*==============================================================*/
+create table TIPO_TRANSPORTE (
+   ID_TIPOTRANSPORTE    int                  identity,
+   NOMBRE               varchar(50)          not null,
+   constraint PK_TIPO_TRANSPORTE primary key (ID_TIPOTRANSPORTE)
+)
+go
+
+/*==============================================================*/
 /* Table: TRANSPORTE                                            */
 /*==============================================================*/
 create table TRANSPORTE (
    ID_TRANSPORTE        int                  identity,
    ID_COOPERATIVA       int                  null,
-   TIPO                 varchar(50)          not null,
+   ID_TIPOTRANSPORTE    int                  null,
    ZONA                 varchar(200)         not null,
    HORARIOS             varchar(200)         not null,
    LIMITE               decimal(5,2)         not null,
    constraint PK_TRANSPORTE primary key (ID_TRANSPORTE),
    constraint FK_TRANSPOR_REFERENCE_COOPERAT foreign key (ID_COOPERATIVA)
-      references COOPERATIVA (ID_COOPERATIVA)
+      references COOPERATIVA (ID_COOPERATIVA),
+   constraint FK_TRANSPOR_REFERENCE_TIPO_TRA foreign key (ID_TIPOTRANSPORTE)
+      references TIPO_TRANSPORTE (ID_TIPOTRANSPORTE)
 )
 go
 
 insert into TIPOS_USUARIOS(NOMBRE) values('Admin'),('Cliente'),('Cooperativa')
+insert into TIPO_TRANSPORTE(NOMBRE) values('Remolque vagones'),('Camion'),('Trailer'),('Rabones'),('Rastra')
