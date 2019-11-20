@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
+    <asp:Literal ID="output" runat="server"></asp:Literal>
     <article class="column large-full entry format-standard">
         <h2>Agregar Corta</h2>
         <div class="input-field col s6 row">
@@ -14,7 +15,7 @@
            </div>
         
         <div class="row">
-            <asp:HyperLink ID="lOK" CssClass="waves-effect waves-light btn-large" runat="server">GUARDAR</asp:HyperLink>
+            <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOKs_Click">GUARDAR</asp:LinkButton>
         </div>
     </article>
 </asp:Content>

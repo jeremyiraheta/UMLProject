@@ -66,13 +66,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Contenido.aspx" />
     <Content Include="Cooperativa.aspx" />
     <Content Include="Corta.aspx" />
+    <Content Include="Crear.aspx" />
     <Content Include="css\azu.jpg" />
     <Content Include="css\base.css" />
     <Content Include="css\main.css" />
     <Content Include="css\vendor.css" />
-    <Content Include="Info_Bancaria.aspx" />
     <Content Include="js\jquery-3.2.1.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\modernizr.js" />
@@ -83,7 +84,6 @@
     <Content Include="materialize\js\materialize.js" />
     <Content Include="materialize\js\materialize.min.js" />
     <Content Include="Pesaje.aspx" />
-    <Content Include="registrar.aspx" />
     <Content Include="packages.config" />
     <Content Include="Main.Master" />
     <Content Include="Transporte.aspx" />
@@ -103,6 +103,14 @@
   <ItemGroup>
     <Compile Include="clases\DBManager.cs" />
     <Compile Include="clases\DBModel.cs" />
+    <Compile Include="clases\Util.cs" />
+    <Compile Include="Contenido.aspx.cs">
+      <DependentUpon>Contenido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contenido.aspx.designer.cs">
+      <DependentUpon>Contenido.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cooperativa.aspx.cs">
       <DependentUpon>Cooperativa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -117,19 +125,19 @@
     <Compile Include="Corta.aspx.designer.cs">
       <DependentUpon>Corta.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Crear.aspx.cs">
+      <DependentUpon>Crear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Crear.aspx.designer.cs">
+      <DependentUpon>Crear.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Info_Bancaria.aspx.cs">
-      <DependentUpon>Info_Bancaria.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Info_Bancaria.aspx.designer.cs">
-      <DependentUpon>Info_Bancaria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -144,13 +152,6 @@
     </Compile>
     <Compile Include="Pesaje.aspx.designer.cs">
       <DependentUpon>Pesaje.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="registrar.aspx.cs">
-      <DependentUpon>registrar.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="registrar.aspx.designer.cs">
-      <DependentUpon>registrar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>

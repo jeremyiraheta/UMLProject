@@ -4,6 +4,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
+    <asp:Literal ID="output" runat="server"></asp:Literal>
     <article class="column large-full entry format-standard">
         <h2>Agregar Cooperativa</h2>
         <div class="input-field col s6 row">
@@ -20,16 +21,20 @@
            </div>
         <div class="row">            
                 <label>
-                        <asp:RadioButton ID="rbtCorte" runat="server" Checked="true" />
+                        <asp:RadioButton ID="rbtCorte" GroupName="g" runat="server" Checked="true" />
                         <span>Corte</span>
                     </label>
                 <label>
-                        <asp:RadioButton ID="rbtTransporte" runat="server" />
+                        <asp:RadioButton ID="rbtTransporte" GroupName="g" runat="server" />
                         <span>Transporte</span>
-                    </label>           
+                    </label>   
+            <label>
+                        <asp:RadioButton ID="rbtPesaje" GroupName="g" runat="server" />
+                        <span>Pesaje</span>
+                    </label>        
         </div>
         <div class="row">
-            <a class="waves-effect waves-light btn-large">GUARDAR</a>
+            <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOKs_Click" >GUARDAR</asp:LinkButton>
         </div>
     </article>
 </asp:Content>

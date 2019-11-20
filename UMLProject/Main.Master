@@ -111,25 +111,28 @@
         </header>
         <!-- end s-header -->
 
-        <div class="s-content">
+       <div class="s-content content">
+            <main class="content__page">
+                
+                <article class="column large-full entry format-standard">
 
-            <div class="masonry-wrap">
-
-                <div class="masonry">
-
-                    <div class="grid-sizer"></div>
+                    <div class="media-wrap entry__media">
+                    <form id="form1" runat="server">
+                    <asp:ContentPlaceHolder ID="content" runat="server">
+                                </asp:ContentPlaceHolder>
+                        </form>
+                    <!--<div class="grid-sizer"></div>
 
                     <article class="masonry__brick entry format-standard animate-this">
-                        <form id="form1" runat="server">
+                        
                             <div>
-                                <asp:ContentPlaceHolder ID="content" runat="server">
-                                </asp:ContentPlaceHolder>
+                                
                             </div>
                         </form>
                     </article>
-                    <!-- end article -->
+                     end article -->
 
-                </div>
+                </div></article></main>
                 <!-- end masonry -->
 
             </div>

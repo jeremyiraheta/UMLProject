@@ -14,16 +14,16 @@ namespace UMLProject
         {
             foreach (clases.Tipos_Usuarios t in db.getTipos_Usuarios())
             {
-                ddTipo.Items.Add(new ListItem(t.NOMBRE, t.ID_TIPOUSUARIO.ToString()));
+                if(t.NOMBRE.ToLower() != "admin") ddTipo.Items.Add(new ListItem(t.NOMBRE, t.ID_TIPOUSUARIO.ToString()));
             }
         }
 
         protected void lOKs_Click(object sender, EventArgs e)
         {
             if (!db.AgregarUsuario(txtusername.Text, txtpassword.Text, int.Parse(ddTipo.SelectedValue.ToString()), txtname.Text, txtApellido.Text, txtdui.Text, txtnit.Text, txttel.Text, txtemail.Text, txtDireccion.Text))
-                output.Text = "<div class=\"alert-box alert-box--error hideit\">" +
-                                "<p>Ocurrio un error</p>" +
-                                "<i class=\"fa fa-times alert-box__close\" aria-hidden=\"true\"></i></div>";
+                output.Text = clases.Util.MensajeFracaso("No se completo la transaccion");
+            else
+                Response.Redirect("Login.aspx");
         }
     }
 }

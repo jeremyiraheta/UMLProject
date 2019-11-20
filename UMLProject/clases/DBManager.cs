@@ -21,20 +21,13 @@ namespace UMLProject.clases
         {
             SqlDataAdapter adapter = new SqlDataAdapter(query, conexion);
             DataSet ds = new DataSet();
-            adapter.Fill(ds);
-            return ds;
-        }
-        public List<object[]> DoQueryNonDS(string query)
-        {
-            DataSet ds = DoQuery(query);
-            List<object[]> ret = new List<object[]>();
-            if (ds.Tables.Count == 0) return ret;
-            foreach (object[] r in ds.Tables[0].Rows)
+            try
             {
-                ret.Add(r);
+                adapter.Fill(ds);
             }
-            return ret;
-        }
+            catch { ds = null; }
+            return ds;
+        }        
         public bool Update(string table, string field, object value, string where)
         {
             bool ret = false;
@@ -319,6 +312,16 @@ namespace UMLProject.clases
         {
             return getCooperativas()[id];
         }
+        public Cooperativa getCooperativa(string username, string tipo)
+        {
+            Dictionary<int, Cooperativa> c = getCooperativas();
+            foreach (Cooperativa i in c.Values)
+            {
+                if (i.USUARIO.NOMBRE == username && tipo.ToLower() == i.TIPO.ToLower())
+                    return i;
+            }
+            return null;
+        }
         public bool AgregarTransporte(int cooperativa, string tipo, string zona, string horarios, decimal limite)
         {
             return isValid(DoQuery($"insert into Transporte(id_cooperativa,tipo,zona,horarios,limite) values({cooperativa},'{tipo}','{zona}','{horarios}','{limite}')"));
@@ -443,15 +446,49 @@ namespace UMLProject.clases
         {
             return getCortas()[id];
         }
-        public bool ValidarUsuario(string user, string pass)
+        public bool AgregarImagen(string nombre, string url)
+        {
+            return isValid(DoQuery($"insert into Imagenes(nombre,url) values ('{nombre}','{url}')"));
+        }
+        public bool ModificarImagen(int id, string nombre, string url)
+        {
+            return isValid(DoQuery($"update Imagenes set nombre='{nombre}',url='{url}' where id_imagen={id}"));
+        }
+        public Dictionary<int, Imagenes> getImagenes()
+        {
+            DataSet ds = DoQuery("select * from Imagenes");
+            Dictionary<int, Imagenes> l = new Dictionary<int, Imagenes>();
+            if (isValid(ds))
+            {
+                foreach (DataRow r in getDataRows(ds))
+                {
+                    Imagenes n = new Imagenes();
+                    n.ID_IMAGEN = int.Parse(r["ID_IMAGEN"].ToString());
+                    n.NOMBRE = r["NOMBRE"].ToString();
+                    n.URL = r["URL"].ToString();
+                    l.Add(n.ID_IMAGEN, n);
+                }
+            }
+            return l;
+        }
+        public Imagenes getImagen(int id)
+        {
+            return getImagenes()[id];
+        }
+        public Usuarios ValidarUsuario(string user, string pass)
         {
             string md5p = MD5Hash(pass);
-            List<object[]> list = DoQueryNonDS($"select * from usuarios where id_usuario='{user}' and password='{md5p}'");
-            return list.Count != 0;
+            Usuarios u=null;
+            DataSet ds = DoQuery($"select * from usuarios where id_usuario='{user}' and password='{md5p}'");
+            if (isValid(ds))
+                if (ds.Tables.Count > 0)
+                    u = getUsuario(user);
+            return u;
         }
         private bool isValid(DataSet ds)
         {
-            return ds.Tables.Count != 0;
+            if (ds == null) return false;
+            return !ds.HasErrors;
         }
         private DataRow getFirstDataRow(DataSet ds)
         {
@@ -490,14 +527,33 @@ namespace UMLProject.clases
     }
     class LoginData
     {
-        public string USERNAME { get; set; }
-        public string PASSWORD { get; set; }
-        public int ROL { get; set; }
+        string user, pass;
+        Tipos_Usuarios t;     
+        public LoginData(Usuarios u)
+        {
+            user = u.ID_USUARIO;
+            pass = u.PASSWORD;
+            t = u.TIPO;
+        }
+        public string USERNAME
+        {
+            get
+            {
+                return user;
+            }
+        }       
+        public Tipos_Usuarios ROL
+        {
+            get
+            {
+                return t;
+            }
+        }
         public bool isAdmin
         {
             get
             {
-                return new DBManager().getTipo_Usuario(ROL).NOMBRE.ToLower() == "admin";
+                return t.NOMBRE.ToLower() == "admin";
             }
         }
     }

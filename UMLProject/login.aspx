@@ -3,7 +3,9 @@
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-    <div class="content__page">
+
+    <div class="content__page">        
+        <asp:Literal ID="output" runat="server"></asp:Literal>
         <div class="input-field col s6 row">
             <h2>Inicio de session</h2></div>
         <div class="input-field col s6 row">

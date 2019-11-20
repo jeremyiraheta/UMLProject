@@ -8,9 +8,9 @@
         });
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-   <article class="column large-full entry format-standard">
-       <asp:Literal ID="output" runat="server"></asp:Literal>
+<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">    
+        <asp:Literal ID="output" runat="server"></asp:Literal>
+   <article class="column large-full entry format-standard">       
        <h2>Crear Usuario</h2>       
                     <!--botones texbox-->
                     <div class="input-field col s6 row">
@@ -66,5 +66,5 @@
                     </div>
                     <br />
                     <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOKs_Click">REGISTRARSE</asp:LinkButton>
-                    </article>    
+                    </article>   
 </asp:Content>
