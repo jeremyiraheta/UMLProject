@@ -102,8 +102,9 @@ go
 /* Table: MENUS_USUARIOS                                        */
 /*==============================================================*/
 create table MENUS_USUARIOS (
-   ID_TIPOUSUARIO       int                  null,
-   ID_MENU              int                  null,
+   ID_TIPOUSUARIO       int                  not null,
+   ID_MENU              int                  not null,
+   constraint PK_MENUS_USUARIOS primary key (ID_TIPOUSUARIO, ID_MENU),
    constraint FK_MENUS_US_REFERENCE_TIPOS_US foreign key (ID_TIPOUSUARIO)
       references TIPOS_USUARIOS (ID_TIPOUSUARIO),
    constraint FK_MENUS_US_REFERENCE_MENUS foreign key (ID_MENU)
@@ -168,6 +169,7 @@ create table TRANSPORTE (
       references TIPO_TRANSPORTE (ID_TIPOTRANSPORTE)
 )
 go
+
 
 insert into TIPOS_USUARIOS(NOMBRE) values('Admin'),('Cliente'),('Cooperativa')
 insert into TIPO_TRANSPORTE(NOMBRE) values('Remolque vagones'),('Camion'),('Trailer'),('Rabones'),('Rastra')

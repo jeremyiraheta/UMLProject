@@ -11,7 +11,13 @@ namespace UMLProject.clases
 {
     public class DBManager
     {
-        const string conexion = "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
+#if DEBUG
+        const bool PRODUCCION = false;
+#else
+        const bool PRODUCCION = true;
+#endif
+        string conexion = (PRODUCCION) ? "Server=tcp:utecproyecto.database.windows.net,1433;Initial Catalog=UML;Persist Security Info=False;User ID=jeremy.iraheta;Password=R4damantis;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
+
         public DBManager()
         {
 

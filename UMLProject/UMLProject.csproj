@@ -74,6 +74,7 @@
     <Content Include="css\base.css" />
     <Content Include="css\main.css" />
     <Content Include="css\vendor.css" />
+    <Content Include="imgs\logo.jpg" />
     <Content Include="js\jquery-3.2.1.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\modernizr.js" />
