@@ -70,6 +70,22 @@ create table CORTA (
 go
 
 /*==============================================================*/
+/* Table: FACTURACION                                           */
+/*==============================================================*/
+create table FACTURACION (
+   ID_FACTURA           int                  identity,
+   ID_USUARIO           varchar(50)          null,
+   FECHA                datetime             not null,
+   TOTALIVA             decimal(5,2)         null,
+   TOTAL                decimal(5,2)         null,
+   ACTIVA               bit                  not null,
+   constraint PK_FACTURACION primary key (ID_FACTURA),
+   constraint FK_FACTURAC_REFERENCE_USUARIOS foreign key (ID_USUARIO)
+      references USUARIOS (ID_USUARIO)
+)
+go
+
+/*==============================================================*/
 /* Table: IMAGENES                                              */
 /*==============================================================*/
 create table IMAGENES (
@@ -113,17 +129,32 @@ create table MENUS_USUARIOS (
 go
 
 /*==============================================================*/
+/* Table: TIPO_PRODUCTO                                         */
+/*==============================================================*/
+create table TIPO_PRODUCTO (
+   ID_PRODUCTO          int                  identity,
+   NOMBRE               varchar(200)         not null,
+   UNIDAD               varchar(200)         null,
+   PRECIO               decimal(5,2)         not null,
+   constraint PK_TIPO_PRODUCTO primary key (ID_PRODUCTO)
+)
+go
+
+/*==============================================================*/
 /* Table: PEDIDOS                                               */
 /*==============================================================*/
 create table PEDIDOS (
-   ID_PEDIDO            int                  not null,
-   ID_USUARIO           varchar(50)          null,
+   ID_PEDIDO            int                  identity,
+   NORDEN               int                  not null,
+   ID_PRODUCTO          int                  null,
+   ID_FACTURA           int                  null,
    CANTIDAD             decimal(5,2)         not null,
-   TOTAL                decimal(5,2)         not null,
-   PROCESADO            bit                  not null,
-   constraint PK_PEDIDOS primary key (ID_PEDIDO),
-   constraint FK_PEDIDOS_REFERENCE_USUARIOS foreign key (ID_USUARIO)
-      references USUARIOS (ID_USUARIO)
+   SUBTOTAL             decimal(5,2)         not null,
+   constraint PK_PEDIDOS primary key (ID_PEDIDO, NORDEN),
+   constraint FK_PEDIDOS_REFERENCE_TIPO_PRO foreign key (ID_PRODUCTO)
+      references TIPO_PRODUCTO (ID_PRODUCTO),
+   constraint FK_PEDIDOS_REFERENCE_FACTURAC foreign key (ID_FACTURA)
+      references FACTURACION (ID_FACTURA)
 )
 go
 
@@ -173,3 +204,4 @@ go
 
 insert into TIPOS_USUARIOS(NOMBRE) values('Admin'),('Cliente'),('Cooperativa')
 insert into TIPO_TRANSPORTE(NOMBRE) values('Remolque vagones'),('Camion'),('Trailer'),('Rabones'),('Rastra')
+insert into TIPO_PRODUCTO(NOMBRE,UNIDAD,PRECIO) values('Bolsa Azucar Estandar','Bolsa','5.5'),('Saco Azucar Estandar','Saco','200')

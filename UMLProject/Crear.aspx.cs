@@ -11,7 +11,6 @@ namespace UMLProject
     public partial class Crear : System.Web.UI.Page
     {
         clases.LoginData ldata;
-        int selected = -1;
         clases.DBManager db = new clases.DBManager();
         Dictionary<int, clases.Imagenes> imagenes;
         protected void Page_Load(object sender, EventArgs e)
@@ -26,8 +25,9 @@ namespace UMLProject
             {
                 Response.Redirect("Default.aspx");
                 return;
-            }
+            }            
             imagenes = db.getImagenes();
+            if (IsPostBack) return;
             imgs.Items.Clear();
             foreach (clases.Imagenes i in imagenes.Values)
             {
@@ -59,12 +59,12 @@ namespace UMLProject
 
         protected void imgs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (imgs.SelectedValue != null)
-                selected = int.Parse(imgs.SelectedValue);
-            else
-                selected = -1;
-            if (selected != -1)
-                img.ImageUrl = imagenes[selected].URL;
+            if (imgs.SelectedIndex != -1)
+            {
+                img.ImageUrl = imagenes[int.Parse(imgs.SelectedValue)].URL;
+                btnCopys.Attributes.Remove("OnClick");
+                btnCopys.Attributes.Add("OnClick", $"CopyToClipboard('{img.ImageUrl}')");
+            }
         }
 
         protected void btnSubir_Click(object sender, EventArgs e)
@@ -83,7 +83,7 @@ namespace UMLProject
                         while (File.Exists(Path.Combine(path, ret)))
                             ret = "IMG_" + new Random(DateTime.Now.Millisecond).Next() + "." + ext;
                         hpf.SaveAs(Path.Combine(path, ret));
-                        db.AgregarImagen(Path.GetFileName(ret), "~/imgs/" + ret);
+                        db.AgregarImagen(ret, "/imgs/" + ret);
                     }
                 }
             }
@@ -96,10 +96,10 @@ namespace UMLProject
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            if (selected != -1)
+            if (imgs.SelectedIndex != -1)
             {
-                File.Delete(Server.MapPath(imagenes[selected].URL));
-                db.EliminarImagen(selected);                
+                File.Delete(Server.MapPath(imagenes[int.Parse(imgs.SelectedValue)].URL));
+                db.EliminarImagen(int.Parse(imgs.SelectedValue));                
             }
         }
     }

@@ -5,8 +5,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
     <asp:Literal ID="output" runat="server"></asp:Literal>
-    <article class="column large-full entry format-standard">
-        <h2>Agregar Cooperativa</h2>
+    <article class="column large-full entry format-standard" style="padding-left:25%;">
+        <h2><asp:Label ID="Label1" runat="server" Text="Agregar Cooperativa"></asp:Label></h2>        
         <div class="input-field col s6 row">
                <asp:TextBox ID="txtNombre" runat="server" Width="278px"></asp:TextBox>
                <label for="name">Nombre</label>

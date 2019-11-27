@@ -61,7 +61,7 @@
             <div class="header__top">
                 <div class="header__logo">
                     <a class="site-logo" href="Default.aspx">
-                        <img src="/imgs/logo.jpg" alt="Homepage" style="width:200px;height:200px;">
+                        <img src="/imgs/logo.jpg" alt="Homepage" style="width: 200px; height: 200px;">
                     </a>
                 </div>
                 <!-- toggles -->
@@ -75,7 +75,7 @@
 
                 <ul class="header__nav">
                     <li><a href="Default.aspx" title="">Inicio</a></li>
-                    
+
                     <asp:Literal ID="menu" runat="server"></asp:Literal>
                     <!--<li class="has-children">
                         <a href="#0" title="">Categories</a>
@@ -110,7 +110,7 @@
                     <li><a href="/uml/contents/diagrams.html" title="">UML</a></li>-->
                     <%if (Session["user"] == null) Response.Write("<li><a href=\"Usuarios.aspx\" title=\"\">Registrarse</a></li>"); %>
                     <li runat="server" id="userid"><a href="Login.aspx" title="">Login</a></li>
-                    
+
                 </ul>
                 <!-- end header__nav -->
 
@@ -122,17 +122,17 @@
         </header>
         <!-- end s-header -->
 
-       <div class="s-content content">
+        <div class="s-content content">
             <main class="content__page">
-                
+
                 <article class="column large-full entry format-standard">
 
                     <div class="media-wrap entry__media">
-                    <form id="form1" runat="server">
-                    <asp:ContentPlaceHolder ID="content" runat="server">
-                                </asp:ContentPlaceHolder>
+                        <form id="form1" runat="server">
+                            <asp:ContentPlaceHolder ID="content" runat="server">
+                            </asp:ContentPlaceHolder>
                         </form>
-                    <!--<div class="grid-sizer"></div>
+                        <!--<div class="grid-sizer"></div>
 
                     <article class="masonry__brick entry format-standard animate-this">
                         
@@ -143,15 +143,17 @@
                     </article>
                      end article -->
 
-                </div></article></main>
-                <!-- end masonry -->
-
-            </div>
-            <!-- end masonry-wrap -->
-
-
+                    </div>
+                </article>
+            </main>
+            <!-- end masonry -->
 
         </div>
+        <!-- end masonry-wrap -->
+
+
+
+    </div>
         <!-- end s-content -->
 
 
@@ -160,7 +162,6 @@
         <footer class="s-footer">
         </footer>
 
-    </div>
     <!-- end s-wrap -->
 
 

@@ -15,11 +15,12 @@ namespace UMLProject
             ldata = (clases.LoginData)Session["user"];
             if (ldata == null)
             {
-                output.Text = clases.Util.MensajeFracaso("No es un usuario logueado");
+                Response.Redirect("Default.aspx");
                 return;
-            }else if(ldata.ROL.NOMBRE.ToLower() != "cooperativa")
+            }
+            else if (!clases.Util.checkRolByName(ldata.ROL, "cooperativa"))
             {
-                output.Text = clases.Util.MensajeFracaso("No eres cooperativa");
+                Response.Redirect("Default.aspx");
                 return;
             }
         }
@@ -28,7 +29,7 @@ namespace UMLProject
         {
             clases.DBManager db = new clases.DBManager();
             string tipo = "";
-            if (rbtCorte.Checked) tipo = "Corte";
+            if (rbtCorte.Checked) tipo = "Corta";
             if (rbtPesaje.Checked) tipo = "Pesaje";
             if (rbtTransporte.Checked) tipo = "Transporte";
             if (db.AgregarCooperativa(ldata.USERNAME, txtNombre.Text, txtZona.Text, txtTel.Text, tipo))

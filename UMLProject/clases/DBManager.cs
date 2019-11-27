@@ -17,8 +17,7 @@ namespace UMLProject.clases
         const bool PRODUCCION = true;
 #endif
         string conexion = (PRODUCCION) ? "Server=tcp:utecproyecto.database.windows.net,1433;Initial Catalog=UML;Persist Security Info=False;User ID=jeremy.iraheta;Password=R4damantis;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
-        Tipos_Usuarios todos = new Tipos_Usuarios() { ID_TIPOUSUARIO = -1, NOMBRE = "TODOS" };
-
+        
         public DBManager()
         {
 
@@ -157,8 +156,7 @@ namespace UMLProject.clases
                 }
             }
             return l;
-        }
-        private Dictionary<int, Menus> m;
+        }        
         public Menus getMenu(int id)
         {           
             return getMenus()[id];
@@ -241,50 +239,50 @@ namespace UMLProject.clases
         {
             return isValid(DoQuery($"delete from Menus_Usuarios where id_tipousuario={tipo.ID_TIPOUSUARIO} and id_menu={menu.ID_MENU}"));
         }
-        public Dictionary<Tipos_Usuarios, List<Menus>> getMenusAUsuario()
+        public Dictionary<int, List<Menus>> getMenusAUsuario()
         {
             DataSet ds = DoQuery("select * from Menus_Usuarios");
-            Dictionary<Tipos_Usuarios, List<Menus>> l = new Dictionary<Tipos_Usuarios, List<Menus>>();
+            Dictionary<int, List<Menus>> l = new Dictionary<int, List<Menus>>();
             if (isValid(ds))
             {
                 foreach (DataRow r in getDataRows(ds))
                 {
                     Menus m = getMenu(int.Parse(r["ID_MENU"].ToString()));
-                    Tipos_Usuarios t = getTipo_Usuario(int.Parse(r["ID_TIPOUSUARIO"].ToString()));
+                    int t = int.Parse(r["ID_TIPOUSUARIO"].ToString());
                     if (l.ContainsKey(t))
                         l[t].Add(m);
                     else
                         l.Add(t, new List<Menus>(new Menus[] { m }));
                 }
             }            
-            ds = DoQuery("select * from Menus where ID_MENU not in (select distinct ID_MENU from Menus_Usuarios) and (ID_ARTICULO is not null and URL != '')");
+            ds = DoQuery("select * from Menus where ID_MENU not in (select distinct ID_MENU from Menus_Usuarios)");
             if(isValid(ds))
             {
                 foreach (DataRow r in getDataRows(ds))
                 {
                     Menus m = getMenu(int.Parse(r["ID_MENU"].ToString()));                    
-                    if (l.ContainsKey(todos))
-                        l[todos].Add(m);
+                    if (l.ContainsKey(-1))
+                        l[-1].Add(m);
                     else
-                        l.Add(todos, new List<Menus>(new Menus[] { m }));
+                        l.Add(-1, new List<Menus>(new Menus[] { m }));
                 }
             }
             return l;
         }
-        public List<Menus> getMenuAUsuario(Tipos_Usuarios t)
+        public List<Menus> getMenuAUsuario(int t)
         {
 
-            Dictionary<Tipos_Usuarios, List<Menus>> list = getMenusAUsuario();
-            if (list.Keys.Contains(t))
+            Dictionary<int, List<Menus>> list = getMenusAUsuario();
+            if (list.ContainsKey(t))
                 return list[t];
             else
                 return new List<Menus>();
         }
         public List<Menus> getMenuATodos()
         {
-            Dictionary<Tipos_Usuarios,List<Menus>> list = getMenusAUsuario();
-            if (list.Keys.Contains(todos))
-                return list[todos];
+            Dictionary<int,List<Menus>> list = getMenusAUsuario();
+            if (list.Keys.Contains(-1))
+                return list[-1];
             else
                 return new List<Menus>();
         }
@@ -296,6 +294,7 @@ namespace UMLProject.clases
             else
                 return false;
         }
+        
         public bool AgregarPedido(string user, decimal cantidad, decimal total, bool procesado)
         {
             return isValid(DoQuery($"insert into Pedidos(id_usuario,cantidad,total,procesado) values('{user}',{cantidad},{total},{procesado})"));
@@ -368,7 +367,7 @@ namespace UMLProject.clases
             Dictionary<int, Cooperativa> c = getCooperativas();
             foreach (Cooperativa i in c.Values)
             {
-                if (i.USUARIO.NOMBRE == username && tipo.ToLower() == i.TIPO.ToLower())
+                if (i.USUARIO.ID_USUARIO == username && tipo.ToLower() == i.TIPO.ToLower())
                     return i;
             }
             return null;
@@ -511,7 +510,7 @@ namespace UMLProject.clases
         }
         public Dictionary<int, Imagenes> getImagenes()
         {
-            DataSet ds = DoQuery("select * from Imagenes");
+            DataSet ds = DoQuery("select * from Imagenes order by id_imagen desc");
             Dictionary<int, Imagenes> l = new Dictionary<int, Imagenes>();
             if (isValid(ds))
             {

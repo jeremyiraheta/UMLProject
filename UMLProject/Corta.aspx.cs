@@ -16,12 +16,12 @@ namespace UMLProject
             ldata = (clases.LoginData)Session["user"];
             if (ldata == null)
             {
-                output.Text = clases.Util.MensajeFracaso("No es un usuario logueado");
+                Response.Redirect("Default.aspx");
                 return;
             }
-            else if (ldata.ROL.NOMBRE.ToLower() != "cooperativa")
+            else if (!clases.Util.checkRolByName(ldata.ROL, "cooperativa"))
             {
-                output.Text = clases.Util.MensajeFracaso("No eres cooperativa");
+                Response.Redirect("Default.aspx");
                 return;
             }
         }

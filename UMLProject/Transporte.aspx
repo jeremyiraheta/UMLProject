@@ -1,20 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Transporte.aspx.cs" Inherits="UMLProject.Transporte" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems, null);
-        });
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-    <article class="column large-full entry format-standard">
-        <h2>Agregar transporte</h2>
+    <asp:Literal ID="output" runat="server"></asp:Literal>
+    <article class="column large-full entry format-standard" style="padding-left:25%;">
+        <h2><asp:Label ID="Label1" runat="server" Text="Agregar transporte"></asp:Label></h2>
+        
         <div class="input-field col s12 row">
-                <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Tipo de transporte</a>                    
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
-                        <li><a href="#!"></a></li>                        
-                    </ul>
-                    <br />
+            <asp:DropDownList ID="ddTipo" CssClass="browser-default" runat="server" Width="278px"></asp:DropDownList>
             </div>
         <div class="input-field col s6 row">
                <asp:TextBox ID="txtZona" runat="server" Width="278px"></asp:TextBox>
@@ -29,7 +22,7 @@
                <label for="limit_carga">Limite Carga</label>
            </div>
         <div class="row">
-           <asp:HyperLink ID="lOK" CssClass="waves-effect waves-light btn-large" runat="server">GUARDAR</asp:HyperLink>
+           <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOK_Click">GUARDAR</asp:LinkButton>
         </div>
     </article>
 </asp:Content>

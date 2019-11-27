@@ -13,6 +13,33 @@ namespace UMLProject {
     public partial class Transporte {
         
         /// <summary>
+        /// Control output.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal output;
+        
+        /// <summary>
+        /// Control Label1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// Control ddTipo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddTipo;
+        
+        /// <summary>
         /// Control txtZona.
         /// </summary>
         /// <remarks>
@@ -40,12 +67,12 @@ namespace UMLProject {
         protected global::System.Web.UI.WebControls.TextBox txtLimite;
         
         /// <summary>
-        /// Control lOK.
+        /// Control lOKs.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lOK;
+        protected global::System.Web.UI.WebControls.LinkButton lOKs;
     }
 }

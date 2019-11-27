@@ -14,7 +14,7 @@ namespace UMLProject
         protected void Page_Load(object sender, EventArgs e)
         {
             ldata= (clases.LoginData)Session["user"];
-            if (ldata != null)
+            if (ldata != null && ldata.isAdmin)
             {
                 string html = "";
                 html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
@@ -26,20 +26,63 @@ namespace UMLProject
                 html += "<li><a href=\"GUsuarios.aspx\" title=\"\">Gestionar Usuarios</a></li>";
                 html += "<li><a href=\"GArticulos.aspx\" title=\"\">Gestionar Cooperativas</a></li>";
                 html += "<li><a href=\"Logs.aspx\" title=\"\">Ver Historial</a></li>";
+                html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
                 html += "</ul>";
                 userid.InnerHtml = html;
                 userid.Attributes.Add("class", "has-children");
-                menu.Text = LoadMenus(ldata.ROL);                
+                menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);                
+            }else if(ldata != null && clases.Util.checkRolByName(ldata.ROL,"Cooperativa"))
+            {
+                string html = "";
+                html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
+                html += "<ul class=\"sub-menu\">";
+                html += "<li><a href=\"Cooperativa.aspx\" title=\"\">Crear Cooperativa</a></li>";
+                html += "<li><a href=\"Cooperativas.aspx\" title=\"\">Gestionar Cooperativa</a></li>";
+                clases.Cooperativa corta = db.getCooperativa(ldata.USERNAME, "Corta");
+                if (corta != null)
+                {
+                    html += "<li><a href=\"Corta.aspx\" title=\"\">Crear Corta</a></li>";
+                    html += $"<li><a href=\"Corta.aspx?edit=true\" title=\"\">Modificar Corta</a></li>";
+                }
+                clases.Cooperativa pesaje = db.getCooperativa(ldata.USERNAME, "Pesaje");
+                if (pesaje != null)
+                {
+                    html += "<li><a href=\"Pesaje.aspx\" title=\"\">Crear Pesaje</a></li>";
+                    html += "<li><a href=\"Pesaje.aspx?edit=true\" title=\"\">Modificar Corta</a></li>";
+                }
+                clases.Cooperativa transporte = db.getCooperativa(ldata.USERNAME, "Transporte");
+                if (transporte != null)
+                {
+                    html += "<li><a href=\"Transporte.aspx\" title=\"\">Crear Transporte</a></li>";
+                    html += "<li><a href=\"Transporte.aspx?edit=true\" title=\"\">Modificar Transporte</a></li>";
+                }
+                html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
+                html += "</ul>";
+                userid.InnerHtml = html;
+                userid.Attributes.Add("class", "has-children");
+                menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);
+            }else if (ldata != null && clases.Util.checkRolByName(ldata.ROL, "Cliente"))
+            {
+                string html = "";
+                html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
+                html += "<ul class=\"sub-menu\">";
+                html += "<li><a href=\"Pedido.aspx\" title=\"\">Realizar Pedido</a></li>";
+                html += "<li><a href=\"Pedidos.aspx\" title=\"\">Gestionar Pedidos</a></li>";
+                html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
+                html += "</ul>";
+                userid.InnerHtml = html;
+                userid.Attributes.Add("class", "has-children");
+                menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);
             }
-            menu.Text += LoadMenus();
+            menu.Text += LoadMenus();            
 
         }
-        private string LoadMenus(clases.Tipos_Usuarios tipo = null)
+        private string LoadMenus(int tipo = -1)
         {
             string html = "";
             List<clases.Menus> mns;
             List<clases.Menus> mlist = new List<clases.Menus>();
-            if (tipo == null)
+            if (tipo == -1)
                 mns = db.getMenuATodos();
             else
                 mns = db.getMenuAUsuario(tipo);

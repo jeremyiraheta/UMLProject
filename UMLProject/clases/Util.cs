@@ -21,6 +21,9 @@ namespace UMLProject.clases
                                 "<i class=\"fa fa-times alert-box__close\" aria-hidden=\"true\"></i></div>";
         }
             
-
+        public static bool checkRolByName(Tipos_Usuarios t, string rol)
+        {
+            return t.NOMBRE.ToLower() == rol.ToLower();
+        }
     }
 }
