@@ -22,7 +22,7 @@ namespace UMLProject
             if (art == null)
                 Response.Redirect("Default.aspx");
             txtTitulo.Text = art.NOMBRE;
-            txtContenido.Text = art.CONTENIDO;
+            txtContenido.Text = Uri.UnescapeDataString(art.CONTENIDO);
         }
     }
 }

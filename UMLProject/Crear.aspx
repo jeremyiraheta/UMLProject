@@ -15,9 +15,15 @@
                 <asp:LinkButton ID="btnPreview" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="btnPreview_Click">PREVIEW</asp:LinkButton>
                 <asp:LinkButton ID="btnOk" CssClass="waves-effect waves-light btn-large btn-flat btn-block" runat="server" OnClick="btnOk_Click">GUARDAR</asp:LinkButton>
             </div>
-                <div><asp:FileUpload ID="upload" Font-Size="Small" Width="200" runat="server" AllowMultiple="True" /><asp:LinkButton ID="btnSubir" CssClass="waves-effect waves-light btn-large btn-flat btn-block" runat="server" OnClick="btnSubir_Click">SUBIR</asp:LinkButton></div><asp:LinkButton ID="btnDelete" CssClass="waves-effect waves-light btn-large btn-flat btn-block" runat="server" OnClick="btnDelete_Click">ELIMINAR</asp:LinkButton></div><asp:LinkButton ID="btnCopy" CssClass="waves-effect waves-light btn-large btn-flat btn-block" runat="server" OnClick="btnCopy_Click">COPIAR</asp:LinkButton></div>
-                <asp:ListBox ID="imgs" CssClass="browser-default" Width="200" Height="200" runat="server" OnSelectedIndexChanged="imgs_SelectedIndexChanged">                    
-                </asp:ListBox>      <asp:Image ID="img" Height="200" Width="200" CssClass="" runat="server" />
+            <div class="row"><asp:FileUpload ID="upload" Font-Size="Small" Width="200" runat="server" ToolTip="Elija el archivo a subir" AllowMultiple="True" /></div>
+            <br />
+            <div class="row-top">
+                <asp:LinkButton ID="btnSubir" CssClass="waves-effect waves-light btn-large btn-flat btn-block" runat="server" OnClick="btnSubir_Click">SUBIR</asp:LinkButton><asp:LinkButton ID="btnDelete" CssClass="waves-effect waves-light btn-large btn-flat btn-block" runat="server" OnClick="btnDelete_Click">ELIMINAR</asp:LinkButton><asp:HyperLink ID="btnCopys" CssClass="waves-effect waves-light btn-large btn-flat btn-block" runat="server" OnClientClick="">COPIAR</asp:HyperLink>        
+            </div>
+            <br />
+            <div class="row">
+                <asp:ListBox ID="imgs" CssClass="browser-default" Width="200" Height="200" runat="server" OnSelectedIndexChanged="imgs_SelectedIndexChanged"> </asp:ListBox>      <asp:Image ID="img" Height="200" Width="200" CssClass="" runat="server" />                   
+                </div>
 
         </div>
     </div>

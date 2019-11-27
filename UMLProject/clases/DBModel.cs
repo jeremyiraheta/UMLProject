@@ -17,12 +17,28 @@ namespace UMLProject.clases
     }
     public class Menus
     {
+        public Menus()
+        {
+            CHILDREN = new List<Menus>();
+        }
+        public void AddChild(Menus m)
+        {
+            CHILDREN.Add(m);
+        }
+        public bool isMain
+        {
+            get
+            {
+                return PARENT == null;
+            }
+        }        
         public int ID_MENU { get; set; }
         public Menus PARENT { get; set; }
         public Articulos ARTICULO { get; set; }
         public string NOMBRE { get; set; }
         public string URL { get; set; }
         public int ORDEN { get; set; }
+        public List<Menus> CHILDREN { get; }
     }
     public class Tipos_Usuarios
     {

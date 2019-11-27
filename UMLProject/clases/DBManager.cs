@@ -17,6 +17,7 @@ namespace UMLProject.clases
         const bool PRODUCCION = true;
 #endif
         string conexion = (PRODUCCION) ? "Server=tcp:utecproyecto.database.windows.net,1433;Initial Catalog=UML;Persist Security Info=False;User ID=jeremy.iraheta;Password=R4damantis;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
+        Tipos_Usuarios todos = new Tipos_Usuarios() { ID_TIPOUSUARIO = -1, NOMBRE = "TODOS" };
 
         public DBManager()
         {
@@ -111,17 +112,17 @@ namespace UMLProject.clases
         {
             return getArticulos()[id];
         }
-        public bool AgregarMenu(string nombre, Menus parent = null, Articulos articulo = null, string url = "")
+        public bool AgregarMenu(string nombre, int orden, Menus parent = null, Articulos articulo = null, string url = "")
         {
-            return isValid(DoQuery("insert into Menus(id_parent,id_articulo,nombre,url) values (" +
-                (parent == null ? "null" : parent.ID_MENU.ToString()) + "," + (articulo == null ? "null" : articulo.ID_ARTICULO.ToString()) + $",'{nombre}','{url}')"));
+            return isValid(DoQuery("insert into Menus(id_parent,id_articulo,nombre,url, orden) values (" +
+                (parent == null ? "null" : parent.ID_MENU.ToString()) + "," + (articulo == null ? "null" : articulo.ID_ARTICULO.ToString()) + $",'{nombre}','{url}',{orden})"));
         }
-        public bool ModificarMenu(int id, string nombre, Menus parent = null, Articulos articulo = null, string url = "")
+        public bool ModificarMenu(int id, string nombre, int orden,Menus parent = null, Articulos articulo = null, string url = "")
         {
             if (parent != null) Update("Menus", "id_parent", parent.ID_MENU, "id_menu=" + id.ToString());
             if (articulo != null) Update("Menus", "id_articulo", articulo.ID_ARTICULO, "id_menu=" + id.ToString());
             if (url != "") Update("Menus", "url", url, "id_menu=" + id.ToString());
-            return isValid(DoQuery($"update Menus set nombre='{nombre}' where id_menu={id}"));
+            return isValid(DoQuery($"update Menus set nombre='{nombre}',orden={orden} where id_menu={id}"));
         }
         public bool DeleteMenu(int id)
         {
@@ -136,19 +137,30 @@ namespace UMLProject.clases
                 foreach (DataRow r in getDataRows(ds))
                 {
                     Menus n = new Menus();
-                    n.ARTICULO = getArticulo(int.Parse(r["ID_ARTICULO"].ToString()));
+                    try
+                    {
+                        n.ARTICULO = getArticulo(int.Parse(r["ID_ARTICULO"].ToString()));
+                    }
+                    catch { }
                     n.ID_MENU = int.Parse(r["ID_MENU"].ToString());
                     n.NOMBRE = r["NOMBRE"].ToString();
                     n.ORDEN = int.Parse(r["ORDEN"].ToString());
-                    n.PARENT = getMenu(int.Parse(r["ID_PARENT"].ToString()));
+                    try
+                    {
+                        n.PARENT = l[int.Parse(r["ID_PARENT"].ToString())];
+                    }
+                    catch { };
                     n.URL = r["URL"].ToString();
+                    if (n.PARENT != null)
+                        n.PARENT.AddChild(n);
                     l.Add(n.ID_MENU, n);
                 }
             }
             return l;
         }
+        private Dictionary<int, Menus> m;
         public Menus getMenu(int id)
-        {
+        {           
             return getMenus()[id];
         }
         public bool AgregarUsuario(string user, string pass, int tipo, string nombre, string apellido, string dui, string nit, string telefono, string correo, string direccion)
@@ -244,12 +256,45 @@ namespace UMLProject.clases
                     else
                         l.Add(t, new List<Menus>(new Menus[] { m }));
                 }
+            }            
+            ds = DoQuery("select * from Menus where ID_MENU not in (select distinct ID_MENU from Menus_Usuarios) and (ID_ARTICULO is not null and URL != '')");
+            if(isValid(ds))
+            {
+                foreach (DataRow r in getDataRows(ds))
+                {
+                    Menus m = getMenu(int.Parse(r["ID_MENU"].ToString()));                    
+                    if (l.ContainsKey(todos))
+                        l[todos].Add(m);
+                    else
+                        l.Add(todos, new List<Menus>(new Menus[] { m }));
+                }
             }
             return l;
         }
         public List<Menus> getMenuAUsuario(Tipos_Usuarios t)
         {
-            return getMenusAUsuario()[t];
+
+            Dictionary<Tipos_Usuarios, List<Menus>> list = getMenusAUsuario();
+            if (list.Keys.Contains(t))
+                return list[t];
+            else
+                return new List<Menus>();
+        }
+        public List<Menus> getMenuATodos()
+        {
+            Dictionary<Tipos_Usuarios,List<Menus>> list = getMenusAUsuario();
+            if (list.Keys.Contains(todos))
+                return list[todos];
+            else
+                return new List<Menus>();
+        }
+        public bool checkMenuAUsuario(int menu, int tipousuario)
+        {
+            DataSet ds = DoQuery($"select * from MENUS_USUARIOS where ID_MENU = {menu} and ID_TIPOUSUARIO = {tipousuario}");
+            if (isValid(ds))
+                return ds.Tables[0].Rows.Count != 0;
+            else
+                return false;
         }
         public bool AgregarPedido(string user, decimal cantidad, decimal total, bool procesado)
         {
@@ -459,6 +504,10 @@ namespace UMLProject.clases
         public bool ModificarImagen(int id, string nombre, string url)
         {
             return isValid(DoQuery($"update Imagenes set nombre='{nombre}',url='{url}' where id_imagen={id}"));
+        }
+        public bool EliminarImagen(int id)
+        {
+            return isValid(DoQuery($"delete from Imagenes where id_imagen=" + id));
         }
         public Dictionary<int, Imagenes> getImagenes()
         {

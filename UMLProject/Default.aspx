@@ -17,8 +17,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
     
     <div class="container">
-        <div class="entry__post-thumb">
-        <asp:Image ID="Image1" runat="server" ImageUrl="/imgs/logo.jpg" />
+        <div class="entry__post-thumb" style="background-color:black">
+        <center><asp:Image ID="Image1" runat="server" ImageUrl="/imgs/logo.jpg" /></center>
             </div>
         <p class="MsoNormal" style="text-indent:0in;tab-stops:80.25pt">
     <b><span lang="ES-SV">Misión: <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>

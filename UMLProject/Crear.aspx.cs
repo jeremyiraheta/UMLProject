@@ -11,19 +11,27 @@ namespace UMLProject
     public partial class Crear : System.Web.UI.Page
     {
         clases.LoginData ldata;
-        string selected = "";
+        int selected = -1;
+        clases.DBManager db = new clases.DBManager();
+        Dictionary<int, clases.Imagenes> imagenes;
         protected void Page_Load(object sender, EventArgs e)
         {
             ldata = (clases.LoginData)Session["user"];
             if (ldata == null)
             {
-                output.Text = clases.Util.MensajeFracaso("No es un usuario logueado");
+                Response.Redirect("Default.aspx");
                 return;
             }
             else if (!ldata.isAdmin)
             {
-                output.Text = clases.Util.MensajeFracaso("No tienes permisos validos");
+                Response.Redirect("Default.aspx");
                 return;
+            }
+            imagenes = db.getImagenes();
+            imgs.Items.Clear();
+            foreach (clases.Imagenes i in imagenes.Values)
+            {
+                imgs.Items.Add(new ListItem(i.NOMBRE, i.ID_IMAGEN.ToString()));
             }
         }
 
@@ -36,8 +44,8 @@ namespace UMLProject
 
         protected void btnOk_Click(object sender, EventArgs e)
         {
-            clases.DBManager db = new clases.DBManager();
-            if(db.AgregarArticulo(txtTitulo.Text, txtContenido.Text))
+            
+            if(db.AgregarArticulo(txtTitulo.Text, Uri.EscapeDataString(txtContenido.Text)))
             {
                 output.Text = clases.Util.MensajeExito("Articulo agregado");
                 txtPreview.Text = "";
@@ -51,8 +59,12 @@ namespace UMLProject
 
         protected void imgs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selected = imgs.SelectedValue;
-            img.ImageUrl = selected;
+            if (imgs.SelectedValue != null)
+                selected = int.Parse(imgs.SelectedValue);
+            else
+                selected = -1;
+            if (selected != -1)
+                img.ImageUrl = imagenes[selected].URL;
         }
 
         protected void btnSubir_Click(object sender, EventArgs e)
@@ -66,30 +78,29 @@ namespace UMLProject
                     HttpPostedFile hpf = hfc[i];
                     if (hpf.ContentLength > 0)
                     {
-                        hpf.SaveAs(Server.MapPath("MyFiles") + "\\" +
-                          Path.GetFileName(hpf.FileName));
+                        string ret = hpf.FileName;
+                        string ext = ret.Substring(ret.LastIndexOf('.') + 1);
+                        while (File.Exists(Path.Combine(path, ret)))
+                            ret = "IMG_" + new Random(DateTime.Now.Millisecond).Next() + "." + ext;
+                        hpf.SaveAs(Path.Combine(path, ret));
+                        db.AgregarImagen(Path.GetFileName(ret), "~/imgs/" + ret);
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Handle your exception here
+                Console.Write("Error al subir imagen");
+                Console.Write(ex.Message);
             }
-            string ret = filename;
-            string ext = filename.Substring(filename.LastIndexOf('.') + 1);
-            while (File.Exists(Path.Combine(path, ret)))
-                ret = "IMG_" + new Random(DateTime.Now.Millisecond).Next() + "." + ext;
-            return ret;
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-
-        }
-
-        protected void btnCopy_Click(object sender, EventArgs e)
-        {
-
+            if (selected != -1)
+            {
+                File.Delete(Server.MapPath(imagenes[selected].URL));
+                db.EliminarImagen(selected);                
+            }
         }
     }
 }

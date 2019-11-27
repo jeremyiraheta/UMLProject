@@ -2208,7 +2208,7 @@ input::-moz-focus-inner {
   -ms-flex-flow: column nowrap;
   flex-flow: column nowrap;
   width: 300px;
-  background-color: #151515;
+  background-color: black;
   padding-top: 6.4rem;
   padding-right: 10px;
   padding-left: 10px;
@@ -2259,7 +2259,7 @@ input::-moz-focus-inner {
   -ms-flex-align: stretch;
   align-items: stretch;
   max-width: 100%;
-  background-color: #151515;
+  background-color: black;
   margin-top: 3.2rem;
 }
 

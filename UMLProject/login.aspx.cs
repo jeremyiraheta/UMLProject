@@ -25,7 +25,7 @@ namespace UMLProject
                 Response.Redirect("Default.aspx");
             }else
             {
-                clases.Util.MensajeFracaso("Usuario o password incorrectos!");
+                output.Text = clases.Util.MensajeFracaso("Usuario o password incorrectos!");
             }
         }
     }

@@ -30,6 +30,11 @@
     <script src="materialize/js/materialize.min.js"></script>
     <!--inicializando iconos-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <style>
+        ul{
+            width:270px;
+        }
+    </style>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
@@ -54,7 +59,11 @@
         <header class="s-header">
 
             <div class="header__top">
-
+                <div class="header__logo">
+                    <a class="site-logo" href="Default.aspx">
+                        <img src="/imgs/logo.jpg" alt="Homepage" style="width:200px;height:200px;">
+                    </a>
+                </div>
                 <!-- toggles -->
 
                 <a href="#0" class="header__menu-toggle"><span>Menu</span></a>
@@ -65,7 +74,9 @@
             <nav class="header__nav-wrap">
 
                 <ul class="header__nav">
-                    <li class="current"><a href="Default.aspx" title="">Inicio</a></li>
+                    <li><a href="Default.aspx" title="">Inicio</a></li>
+                    
+                    <asp:Literal ID="menu" runat="server"></asp:Literal>
                     <!--<li class="has-children">
                         <a href="#0" title="">Categories</a>
                         <ul class="sub-menu">
@@ -90,15 +101,15 @@
                     <li><a href="page-about.html" title="">Productos</a></li>
                     <li><a href="page-contact.html" title="">Infraestructura</a></li>
                     <li><a href="page-contact.html" title="">Responsabilidad</a></li>
-                    <li><a href="page-contact.html" title="">Clientes y Proveedores</a></li>-->
+                    <li><a href="page-contact.html" title="">Clientes y Proveedores</a></li>
                     <li><a href="Cooperativa.aspx" title="">Cooperativa</a></li>
                     <li><a href="Corta.aspx" title="">Corta</a></li>
                     <li><a href="Info_Bancaria.aspx" title="">Informacion Bancaria</a></li>
                     <li><a href="Pesaje.aspx" title="">Pesaje</a></li>
                     <li><a href="Transporte.aspx" title="">Transporte</a></li>
-                    <li><a href="/uml/contents/diagrams.html" title="">UML</a></li>
-                    <li><a href="Usuarios.aspx" title="">Registrarse</a></li>
-                    <li><a href="login.aspx" title="">Login</a></li>
+                    <li><a href="/uml/contents/diagrams.html" title="">UML</a></li>-->
+                    <%if (Session["user"] == null) Response.Write("<li><a href=\"Usuarios.aspx\" title=\"\">Registrarse</a></li>"); %>
+                    <li runat="server" id="userid"><a href="Login.aspx" title="">Login</a></li>
                     
                 </ul>
                 <!-- end header__nav -->

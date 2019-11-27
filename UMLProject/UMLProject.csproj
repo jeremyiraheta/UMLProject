@@ -84,6 +84,7 @@
     <Content Include="materialize\css\materialize.min.css" />
     <Content Include="materialize\js\materialize.js" />
     <Content Include="materialize\js\materialize.min.js" />
+    <Content Include="Menus.aspx" />
     <Content Include="Pesaje.aspx" />
     <Content Include="packages.config" />
     <Content Include="Main.Master" />
@@ -146,6 +147,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Menus.aspx.cs">
+      <DependentUpon>Menus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Menus.aspx.designer.cs">
+      <DependentUpon>Menus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pesaje.aspx.cs">
       <DependentUpon>Pesaje.aspx</DependentUpon>
