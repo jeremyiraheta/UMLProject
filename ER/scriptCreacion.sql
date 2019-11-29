@@ -201,7 +201,8 @@ create table TRANSPORTE (
 )
 go
 alter table usuarios add unique (dui)
-
+alter table usuarios add unique (nit)
+alter table usuarios add unique (correo)
 
 insert into TIPOS_USUARIOS(NOMBRE) values('Admin'),('Empleado'),('Cliente'),('Cooperativa')
 insert into TIPO_TRANSPORTE(NOMBRE) values('Remolque vagones'),('Camion'),('Trailer'),('Rabones'),('Rastra')

@@ -19,7 +19,8 @@ namespace UMLProject
                 Response.Redirect("Default.aspx");
                 return;
             }
-            else if (!BackEnd.Util.checkRolByName(ldata.ROL, "cooperativa"))
+            bool permit = BackEnd.Util.checkRolByName(ldata.ROL, "cooperativa") || ldata.isAdmin;                       
+            if (!permit)
             {
                 Response.Redirect("Default.aspx");
                 return;
@@ -61,7 +62,7 @@ namespace UMLProject
             if (db.EliminarCooperativa(int.Parse(Request["id"])))
             {
                 db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.ELIMINAR, BackEnd.Tables.COOPERATIVA);
-                Response.Redirect(Request.UrlReferrer.ToString());
+                Response.Redirect(".");
             }
             else
                 output.Text = BackEnd.Util.MensajeFracaso("Ocurrio un error en la transaccion");

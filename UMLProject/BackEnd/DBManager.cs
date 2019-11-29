@@ -171,7 +171,7 @@ namespace UMLProject.BackEnd
         }
         public bool ModificarUsuario(string user, int tipo, string nombre, string apellido, string dui, string nit, string telefono, string correo, string direccion)
         {
-            return isValid(DoQuery($"update Usuarios set tipo={tipo},nombre='{nombre}',apellido='{apellido}',dui='{dui}',nit='{nit}',telefono='{telefono}',correo='{correo},direccion='{direccion}''"));
+            return isValid(DoQuery($"update Usuarios set ID_TIPOUSUARIO={tipo},nombre='{nombre}',apellido='{apellido}',dui='{dui}',nit='{nit}',telefono='{telefono}',correo='{correo}',direccion='{direccion}' where id_usuario='{user}'"));
         }
         public bool EliminarUsuario(string user)
         {

@@ -2,16 +2,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems, null);
-        });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">    
         <asp:Literal ID="output" runat="server"></asp:Literal>
    <article class="column large-full entry format-standard">       
-       <h2>Crear Usuario</h2>       
+       <h2><asp:Label ID="title" runat="server">Crear Usuario</asp:Label></h2>       
                     <!--botones texbox-->
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtusername" runat="server" Width="278px"></asp:TextBox><br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Minimo 5 letras, no use letras raras" ForeColor="Red" ControlToValidate="txtusername" ValidationExpression="^(?=.{5,50}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?&lt;![_.])$"></asp:RegularExpressionValidator>
@@ -20,7 +16,7 @@
                     <div class="" id="pass" runat="server">
                         <div class="input-field col s6 row">
                         <asp:TextBox ID="txtpassword" TextMode="Password" runat="server" Width="278px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtpassword" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
-
+                         <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="Debe tener almenos 6 caracteres" ForeColor="Red" ControlToValidate="txtpassword" ValidationExpression="^.{6,}$"></asp:RegularExpressionValidator>
                         <label for="password">Contraseña</label>
                     </div>
                     <div class="input-field col s6 row">
@@ -42,12 +38,12 @@
                     </div>
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtdui" runat="server" Width="278px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtdui" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="No tiene un formato de DUI valido 00000000-0" ForeColor="Red" ControlToValidate="txtdui" ValidationExpression="^\\d{8}-\\d$"></asp:RegularExpressionValidator>
+                        <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="No tiene un formato de DUI valido 00000000-0" ForeColor="Red" ControlToValidate="txtdui" ValidationExpression="^\d{8}-\d$"></asp:RegularExpressionValidator>
                         <label for="txtdui">DUI</label>
                     </div>                    
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtnit" runat="server" Width="278px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtnit" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="No tiene un formato de NIT valido 0000-000000-000-0" ForeColor="Red" ControlToValidate="txtnit" ValidationExpression="/^[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}$/"></asp:RegularExpressionValidator>
+                        <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="No tiene un formato de NIT valido 0000-000000-000-0" ForeColor="Red" ControlToValidate="txtnit" ValidationExpression="^[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}$"></asp:RegularExpressionValidator>
                         <label for="txtnit">NIT</label>
                     </div>                    
                     <div class="input-field col s6 row">

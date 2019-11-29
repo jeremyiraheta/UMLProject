@@ -66,7 +66,7 @@ namespace UMLProject
             if(db.EliminarArticulo(int.Parse(Request["id"])))
             {
                 db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.ELIMINAR, BackEnd.Tables.ARTICULOS);
-                Response.Redirect(Request.UrlReferrer.ToString());
+                Response.Redirect(".");
             }
             else
                 output.Text = BackEnd.Util.MensajeFracaso("Ocurrio un error en la transaccion");

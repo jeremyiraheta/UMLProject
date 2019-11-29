@@ -77,6 +77,7 @@
     <Content Include="DoQuery.aspx" />
     <Content Include="GArticulos.aspx" />
     <Content Include="GCooperativas.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="GUsuarios.aspx" />
     <Content Include="imgs\logo.jpg" />
     <Content Include="js\jquery-3.2.1.min.js" />
@@ -84,6 +85,7 @@
     <Content Include="js\modernizr.js" />
     <Content Include="js\plugins.js" />
     <Content Include="Login.aspx" />
+    <Content Include="Logs.aspx" />
     <Content Include="materialize\css\materialize.css" />
     <Content Include="materialize\css\materialize.min.css" />
     <Content Include="materialize\js\materialize.js" />
@@ -166,6 +168,9 @@
     <Compile Include="GCooperativas.aspx.designer.cs">
       <DependentUpon>GCooperativas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="GUsuarios.aspx.cs">
       <DependentUpon>GUsuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -179,6 +184,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logs.aspx.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logs.aspx.designer.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Menus.aspx.cs">
       <DependentUpon>Menus.aspx</DependentUpon>
