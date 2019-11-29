@@ -97,6 +97,21 @@ create table IMAGENES (
 go
 
 /*==============================================================*/
+/* Table: LOGS                                                  */
+/*==============================================================*/
+create table LOGS (
+   ID_LOG               int                  identity,
+   ID_USUARIO           varchar(50)          null,
+   ACTION               varchar(10)          not null,
+   "TABLE"              varchar(10)          not null,
+   DATE                 datetime             not null,
+   constraint PK_LOGS primary key (ID_LOG),
+   constraint FK_LOGS_REFERENCE_USUARIOS foreign key (ID_USUARIO)
+      references USUARIOS (ID_USUARIO)
+)
+go
+
+/*==============================================================*/
 /* Table: MENUS                                                 */
 /*==============================================================*/
 create table MENUS (
@@ -159,21 +174,6 @@ create table PEDIDOS (
 go
 
 /*==============================================================*/
-/* Table: PESAJE                                                */
-/*==============================================================*/
-create table PESAJE (
-   ID_PESAJE            int                  identity,
-   ID_COOPERATIVA       int                  null,
-   ZONA                 varchar(200)         not null,
-   HORARIOS             varchar(200)         not null,
-   LIMITE               decimal(5,2)         not null,
-   constraint PK_PESAJE primary key (ID_PESAJE),
-   constraint FK_PESAJE_REFERENCE_COOPERAT foreign key (ID_COOPERATIVA)
-      references COOPERATIVA (ID_COOPERATIVA)
-)
-go
-
-/*==============================================================*/
 /* Table: TIPO_TRANSPORTE                                       */
 /*==============================================================*/
 create table TIPO_TRANSPORTE (
@@ -200,8 +200,10 @@ create table TRANSPORTE (
       references TIPO_TRANSPORTE (ID_TIPOTRANSPORTE)
 )
 go
+alter table usuarios add unique (dui)
 
 
-insert into TIPOS_USUARIOS(NOMBRE) values('Admin'),('Cliente'),('Cooperativa')
+insert into TIPOS_USUARIOS(NOMBRE) values('Admin'),('Empleado'),('Cliente'),('Cooperativa')
 insert into TIPO_TRANSPORTE(NOMBRE) values('Remolque vagones'),('Camion'),('Trailer'),('Rabones'),('Rastra')
-insert into TIPO_PRODUCTO(NOMBRE,UNIDAD,PRECIO) values('Bolsa Azucar Estandar','Bolsa','5.5'),('Saco Azucar Estandar','Saco','200')
+insert into TIPO_PRODUCTO(NOMBRE,UNIDAD,PRECIO) values('Bolsa Azucar Estandar','Bolsa','5.5'),('Saco Azucar Estandar','Saco','100')
+insert into usuarios values('admin',1,'21232f297a57a5a743894a0e4a801fc3','admin','admin','','','','admin@hotmail.com','')

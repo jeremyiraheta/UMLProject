@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace UMLProject.clases
+namespace UMLProject.BackEnd
 {
     sealed class DBModel
     {
@@ -66,10 +66,11 @@ namespace UMLProject.clases
     public class Pedidos
     {
         public int ID_PEDIDO { get; set; }
-        public Usuarios USUARIO { get; set; }
+        public int NORDEN { get; set; }
+        public Tipo_Producto PRODUCTO { get; set; }
+        public Facturacion FACTURA { get; set; }        
         public decimal CANTIDAD { get; set; }
-        public decimal TOTAL { get; set; }
-        public bool PROCESADO { get; set; }
+        public decimal SUBTOTAL { get; set; }        
     }
     public class Cooperativa
     {
@@ -88,15 +89,7 @@ namespace UMLProject.clases
         public string ZONA { get; set; }
         public string HORARIOS { get; set; }
         public decimal LIMITE { get; set; }
-    }
-    public class Pesaje
-    {
-        public int ID_PESAJE { get; set; }
-        public Cooperativa COOPERATIVA { get; set; }
-        public string ZONA { get; set; }
-        public string HORARIOS { get; set; }
-        public decimal LIMITE { get; set; }
-    }
+    }    
     public class Corta
     {
         public int ID_CORTA { get; set; }
@@ -114,5 +107,51 @@ namespace UMLProject.clases
     {
         public int ID_TIPOTRANSPORTE { get; set; }
         public string NOMBRE { get; set; }
+    }
+    public class Facturacion
+    {
+        public int ID_FACTURA { get; set; }
+        public Usuarios USUARIO { get; set; }
+        public DateTime FECHA { get; set; }
+        public decimal TOTALIVA { get; set; }
+        public decimal TOTAL { get; set; }
+        public bool ACTIVA { get; set; }
+    }
+    public class Tipo_Producto
+    {
+        public int ID_PRODUCTO { get; set; }
+        public string NOMBRE { get; set; }
+        public string UNIDAD { get; set; }
+        public decimal PRECIO { get; set; }
+    }
+    public class Log
+    {
+        public int ID_LOG { get; set; }
+        public Usuarios USUARIO { get; set; }
+        public TipoLog ACTION { get; set; }
+        public Tables TABLE { get; set; }
+        public DateTime DATE { get; set; }
+    }
+    public enum TipoLog
+    {
+        CREAR,
+        ACTUALIZAR,
+        ELIMINAR
+    }
+    public enum Tables
+    {
+        ARTICULOS,
+        COOPERATIVA,
+        CORTA,
+        IMAGENES,
+        MENUS,
+        MENUS_USUARIOS,
+        PEDIDOS,
+        TIPO_TRANSPORTE,
+        TIPOS_USUARIOS,
+        TRANSPORTE,
+        USUARIOS,
+        FACTURACION,
+        TIPO_PRODUCTO
     }
 }

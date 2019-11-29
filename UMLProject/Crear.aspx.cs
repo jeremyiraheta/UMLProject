@@ -10,12 +10,12 @@ namespace UMLProject
 {
     public partial class Crear : System.Web.UI.Page
     {
-        clases.LoginData ldata;
-        clases.DBManager db = new clases.DBManager();
-        Dictionary<int, clases.Imagenes> imagenes;
+        BackEnd.LoginData ldata;
+        BackEnd.DBManager db = new BackEnd.DBManager();
+        Dictionary<int, BackEnd.Imagenes> imagenes;
         protected void Page_Load(object sender, EventArgs e)
         {
-            ldata = (clases.LoginData)Session["user"];
+            ldata = (BackEnd.LoginData)Session["user"];
             if (ldata == null)
             {
                 Response.Redirect("Default.aspx");
@@ -25,16 +25,62 @@ namespace UMLProject
             {
                 Response.Redirect("Default.aspx");
                 return;
-            }            
+            }
+            int id = -1;
+            BackEnd.Articulos a;
+            if (Request["edit"] == "true")
+            {
+                try
+                {
+                    id = int.Parse(Request["id"]);
+                    a = db.getArticulo(id);
+
+                }
+                catch
+                {
+                    output.Text = BackEnd.Util.MensajeFracaso("ID no valida");
+                    return;
+                }
+                Label1.Text = "Modificar Articulo";
+                btnOk.Text = "EDITAR";
+                if (!IsPostBack)
+                {                   
+                    txtContenido.Text = Uri.UnescapeDataString(a.CONTENIDO);
+                    txtPreview.Text = txtContenido.Text;
+                }
+                txtTitulo.Text = a.NOMBRE;
+                LinkButton del = new LinkButton();
+                del.Text = "ELIMINAR";
+                del.OnClientClick = "if ( ! UserDeleteConfirmation()) return false;";
+                del.CssClass = "waves-effect waves-light btn-large";
+                del.Click += Del_Click;
+                buttons.Controls.Add(del);
+            } 
+                       
+            if(!IsPostBack) LoadImages();
+
+        }
+
+        private void Del_Click(object sender, EventArgs e)
+        {
+            if(db.EliminarArticulo(int.Parse(Request["id"])))
+            {
+                db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.ELIMINAR, BackEnd.Tables.ARTICULOS);
+                Response.Redirect(Request.UrlReferrer.ToString());
+            }
+            else
+                output.Text = BackEnd.Util.MensajeFracaso("Ocurrio un error en la transaccion");
+        }
+
+        private void LoadImages()
+        {
             imagenes = db.getImagenes();
-            if (IsPostBack) return;
             imgs.Items.Clear();
-            foreach (clases.Imagenes i in imagenes.Values)
+            foreach (BackEnd.Imagenes i in imagenes.Values)
             {
                 imgs.Items.Add(new ListItem(i.NOMBRE, i.ID_IMAGEN.ToString()));
             }
         }
-
         
 
         protected void btnPreview_Click(object sender, EventArgs e)
@@ -45,15 +91,32 @@ namespace UMLProject
         protected void btnOk_Click(object sender, EventArgs e)
         {
             
-            if(db.AgregarArticulo(txtTitulo.Text, Uri.EscapeDataString(txtContenido.Text)))
+            if(btnOk.Text == "EDITAR")
             {
-                output.Text = clases.Util.MensajeExito("Articulo agregado");
-                txtPreview.Text = "";
-                txtContenido.Text = "";
-                txtTitulo.Text = "";
-            }else
+                if(db.ModificarArticulo(int.Parse(Request["id"]), txtTitulo.Text, Uri.EscapeDataString(txtContenido.Text)))
+                {
+                    db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.ACTUALIZAR, BackEnd.Tables.ARTICULOS);
+                    output.Text = BackEnd.Util.MensajeExito("Articulo modificado");
+                }
+                else
+                {
+                    output.Text = BackEnd.Util.MensajeFracaso("No se completo la transaccion");
+                }
+            }
+            else
             {
-                output.Text = clases.Util.MensajeFracaso("No se completo la transaccion");
+                if (db.AgregarArticulo(txtTitulo.Text, Uri.EscapeDataString(txtContenido.Text)))
+                {
+                    output.Text = BackEnd.Util.MensajeExito("Articulo agregado");
+                    db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.CREAR, BackEnd.Tables.ARTICULOS);
+                    txtPreview.Text = "";
+                    txtContenido.Text = "";
+                    txtTitulo.Text = "";
+                }
+                else
+                {
+                    output.Text = BackEnd.Util.MensajeFracaso("No se completo la transaccion");
+                }
             }
         }
 
@@ -61,6 +124,8 @@ namespace UMLProject
         {
             if (imgs.SelectedIndex != -1)
             {
+                if(imagenes == null)
+                    imagenes = db.getImagenes();
                 img.ImageUrl = imagenes[int.Parse(imgs.SelectedValue)].URL;
                 btnCopys.Attributes.Remove("OnClick");
                 btnCopys.Attributes.Add("OnClick", $"CopyToClipboard('{img.ImageUrl}')");
@@ -84,8 +149,10 @@ namespace UMLProject
                             ret = "IMG_" + new Random(DateTime.Now.Millisecond).Next() + "." + ext;
                         hpf.SaveAs(Path.Combine(path, ret));
                         db.AgregarImagen(ret, "/imgs/" + ret);
+                        db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.CREAR, BackEnd.Tables.IMAGENES);
                     }
                 }
+                LoadImages();
             }
             catch (Exception ex)
             {
@@ -98,8 +165,12 @@ namespace UMLProject
         {
             if (imgs.SelectedIndex != -1)
             {
+                if (imagenes == null)
+                    imagenes = db.getImagenes();
                 File.Delete(Server.MapPath(imagenes[int.Parse(imgs.SelectedValue)].URL));
-                db.EliminarImagen(int.Parse(imgs.SelectedValue));                
+                db.EliminarImagen(int.Parse(imgs.SelectedValue));
+                db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.ELIMINAR, BackEnd.Tables.IMAGENES);
+                LoadImages();             
             }
         }
     }

@@ -17,8 +17,8 @@ namespace UMLProject
             int.TryParse(Request["id"].ToString(), out id);
             if (id == -1)
                 Response.Redirect("Default.aspx");
-            clases.DBManager db = new clases.DBManager();
-            clases.Articulos art = db.getArticulo(id);
+            BackEnd.DBManager db = new BackEnd.DBManager();
+            BackEnd.Articulos art = db.getArticulo(id);
             if (art == null)
                 Response.Redirect("Default.aspx");
             txtTitulo.Text = art.NOMBRE;

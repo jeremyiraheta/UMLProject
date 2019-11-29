@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UMLProject.clases
+namespace UMLProject.BackEnd
 {
     public class DBManager
     {
@@ -31,7 +31,10 @@ namespace UMLProject.clases
             {
                 adapter.Fill(ds);
             }
-            catch { ds = null; }
+            catch(Exception ex) {
+                Console.WriteLine("ERROR QUERY:" + query + (char)13 + ex.Message);
+                ds = null;
+            }
             return ds;
         }        
         public bool Update(string table, string field, object value, string where)
@@ -84,11 +87,11 @@ namespace UMLProject.clases
         }
         public bool ModificarArticulo(int id, string nombre, string text)
         {
-            return isValid(DoQuery($"update Articulos set nombre='{nombre}', contenido='{text} where id_articulo='{id}''"));
+            return isValid(DoQuery($"update Articulos set nombre='{nombre}', contenido='{text}' where id_articulo={id}"));
         }
         public bool EliminarArticulo(int id)
         {
-            return isValid(DoQuery($"delete Articulo where id_articulo={id}"));
+            return isValid(DoQuery($"delete Articulos where id_articulo={id}"));
         }
         public Dictionary<int, Articulos> getArticulos()
         {
@@ -314,17 +317,68 @@ namespace UMLProject.clases
                     Pedidos n = new Pedidos();
                     n.CANTIDAD = decimal.Parse(r["CANTIDAD"].ToString());
                     n.ID_PEDIDO = int.Parse(r["ID_PEDIDO"].ToString());
-                    n.PROCESADO = bool.Parse(r["PROCESADO"].ToString());
-                    n.TOTAL = decimal.Parse(r["TOTAL"].ToString());
-                    n.USUARIO = getUsuario(r["ID_USUARIO"].ToString());
+                    n.NORDEN = int.Parse(r["NORDEN"].ToString());
+                    n.FACTURA = getFactura(int.Parse(r["ID_FACTURA"].ToString()));
+                    n.PRODUCTO = getProducto(int.Parse(r["ID_PRODUCTO"].ToString()));
+                    n.SUBTOTAL = decimal.Parse(r["SUBTOTAL"].ToString());
                     l.Add(n.ID_PEDIDO, n);
                 }
             }
             return l;
         }
-        public Pedidos getPedido(int id)
+        public bool AgregarFacturacion(string user)
         {
-            return getPedidos()[id];
+            return isValid(DoQuery($"insert into Facturacion(id_usuario,fecha,activa) values('{user}',GETDATE(),1)"));
+        }
+        public bool ModificarFacturacion(int id, bool activa)
+        {
+            return isValid(DoQuery($"update facturacion set activa={Convert.ToInt32(activa)}"));
+        }
+        public Dictionary<int, Facturacion> getFacturas()
+        {
+            DataSet ds = DoQuery("select * from Facturacion");
+            Dictionary<int, Facturacion> l = new Dictionary<int, Facturacion>();
+            if (isValid(ds))
+            {
+                foreach (DataRow r in getDataRows(ds))
+                {
+                    Facturacion n = new Facturacion();
+                    n.TOTALIVA = decimal.Parse(r["TOTALIVA"].ToString());
+                    n.TOTAL = decimal.Parse(r["TOTAL"].ToString());
+                    n.ID_FACTURA = int.Parse(r["ID_FACTURA"].ToString());
+                    n.ACTIVA = bool.Parse(r["ACTIVA"].ToString());
+                    n.USUARIO = getUsuario(r["ID_USUARIO"].ToString());
+                    n.FECHA = DateTime.Parse(r["FECHA"].ToString());                    
+                    l.Add(n.ID_FACTURA, n);
+                }
+            }
+            return l;
+        }
+        public Facturacion getFactura(int id)
+        {
+            return getFacturas()[id];
+        }
+        public Dictionary<int, Tipo_Producto> getProductos()
+        {
+            DataSet ds = DoQuery("select * from Tipo_Producto");
+            Dictionary<int, Tipo_Producto> l = new Dictionary<int, Tipo_Producto>();
+            if (isValid(ds))
+            {
+                foreach (DataRow r in getDataRows(ds))
+                {
+                    Tipo_Producto n = new Tipo_Producto();
+                    n.PRECIO = decimal.Parse(r["PRECIO"].ToString());
+                    n.UNIDAD = r["UNIDAD"].ToString();
+                    n.ID_PRODUCTO = int.Parse(r["ID_PRODUCTO"].ToString());
+                    n.NOMBRE = r["NOMBRE"].ToString();
+                    l.Add(n.ID_PRODUCTO, n);
+                }
+            }
+            return l;
+        }
+        public Tipo_Producto getProducto(int id)
+        {
+            return getProductos()[id];
         }
         public bool AgregarCooperativa(string user, string nombre, string zona, string telefono, string tipo)
         {
@@ -426,42 +480,7 @@ namespace UMLProject.clases
         public Tipo_Transporte getTipoTransporte(int id)
         {
             return getTipoTransportes()[id];
-        }
-        public bool AgregarPesaje(int cooperativa, string zona, string horarios, decimal limite)
-        {
-            return isValid(DoQuery($"insert into Pesaje(id_cooperativa,zona,horarios,limite) values({cooperativa},'{zona}','{horarios}',{limite})"));
-        }
-        public bool ModificarPesaje(int id, int cooperativa, string zona, string horarios, decimal limite)
-        {
-            return isValid(DoQuery($"update Pesaje set id_cooperativa={cooperativa},zona='{zona}',horarios='{horarios}', limite={limite}"));
-        }
-        public bool EliminarPesaje(int id)
-        {
-            return Delete("Pesaje", "id_pesaje=" + id);
-        }
-        public Dictionary<int, Pesaje> getPesajes()
-        {
-            DataSet ds = DoQuery("select * from Pesaje");
-            Dictionary<int, Pesaje> l = new Dictionary<int, Pesaje>();
-            if (isValid(ds))
-            {
-                foreach (DataRow r in getDataRows(ds))
-                {
-                    Pesaje n = new Pesaje();
-                    n.COOPERATIVA = getCooperativa(int.Parse(r["ID_COOPERATIVA"].ToString()));
-                    n.HORARIOS = r["HORARIOS"].ToString();
-                    n.ID_PESAJE = int.Parse(r["ID_PESAJE"].ToString());
-                    n.LIMITE = decimal.Parse(r["LIMITE"].ToString());
-                    n.ZONA = r["ZONA"].ToString();
-                    l.Add(n.ID_PESAJE, n);
-                }
-            }
-            return l;
-        }
-        public Pesaje getPesaje(int id)
-        {
-            return getPesajes()[id];
-        }
+        }        
         public bool AgregarCorta(int cooperativa, string zona, decimal maximo)
         {
             return isValid(DoQuery($"insert into Corta(id_cooperativa,zona,maximo) values({cooperativa},'{zona}',{maximo})"));
@@ -528,6 +547,29 @@ namespace UMLProject.clases
         public Imagenes getImagen(int id)
         {
             return getImagenes()[id];
+        }
+        public bool AgregarLog(string userid, TipoLog tipo, Tables table)
+        {
+            return isValid(DoQuery($"insert into logs(id_usuario,[action],[table],[date]) values('{userid}','{tipo.ToString()}','{table.ToString()}',GETDATE())"));
+        }
+        public List<Log> getLogs()
+        {
+            DataSet ds = DoQuery("select * from logs order by [date] desc");
+            List<Log> l = new List<Log>();
+            if (isValid(ds))
+            {
+                foreach (DataRow r in getDataRows(ds))
+                {
+                    Log n = new Log();
+                    n.ID_LOG= int.Parse(r["ID_LOG"].ToString());
+                    n.USUARIO = getUsuario(r["ID_USUARIO"].ToString());
+                    n.TABLE = (Tables)Enum.Parse(typeof(Tables), r["TABLE"].ToString());
+                    n.ACTION = (TipoLog)Enum.Parse(typeof(TipoLog), r["ACTION"].ToString());
+                    n.DATE = DateTime.Parse(r["DATE"].ToString());
+                    l.Add(n);
+                }
+            }
+            return l;
         }
         public Usuarios ValidarUsuario(string user, string pass)
         {

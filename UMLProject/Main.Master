@@ -7,7 +7,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>INGENIO AZUCAR RICAH</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -30,6 +30,11 @@
     <script src="materialize/js/materialize.min.js"></script>
     <!--inicializando iconos-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <script>
+        function UserDeleteConfirmation() {
+            return confirm("Esta seguro que desea eliminar?");
+        }
+    </script>
     <style>
         ul{
             width:270px;

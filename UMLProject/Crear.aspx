@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Crear.aspx.cs" ValidateRequest="false" Inherits="UMLProject.Crear" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Crear.aspx.cs" ValidateRequest="false" EnableEventValidation="false" Inherits="UMLProject.Crear" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -20,7 +20,7 @@
                 document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
                 document.getSelection().addRange(selected);   // Restore the original selection
             }
-            alert('Copiado al Clipboard ' + str);
+            alert('Copiado al Clipboard' + str);
         };
     </script>
 </asp:Content>
@@ -31,7 +31,7 @@
         <div class="row">
             <asp:Label ID="Label1" runat="server" Text="Titulo:"></asp:Label><br />
             <asp:TextBox ID="txtTitulo" runat="server" Width="375px" CssClass="blue"></asp:TextBox>
-            <div class="row">
+            <div class="row" id="buttons" runat="server">
                 <asp:Label ID="Label2" runat="server" Text="Contenido:"></asp:Label>
                 <asp:TextBox ID="txtContenido" runat="server" Font-Size="Medium" TextMode="MultiLine" CssClass="yellow" Width="864px" Height="179px"></asp:TextBox>
                 <asp:LinkButton ID="btnPreview" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="btnPreview_Click">PREVIEW</asp:LinkButton>

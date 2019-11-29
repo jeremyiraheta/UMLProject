@@ -16,16 +16,16 @@ namespace UMLProject
 
         protected void lOK_Click(object sender, EventArgs e)
         {
-            clases.DBManager db = new clases.DBManager();
-            clases.Usuarios user = db.ValidarUsuario(txtusername.Text, txtpassword.Text);
+            BackEnd.DBManager db = new BackEnd.DBManager();
+            BackEnd.Usuarios user = db.ValidarUsuario(txtusername.Text, txtpassword.Text);
             if (user != null)
             {
-                clases.LoginData l = new clases.LoginData(user);                
+                BackEnd.LoginData l = new BackEnd.LoginData(user);                
                 Session["user"] = l;
                 Response.Redirect("Default.aspx");
             }else
             {
-                output.Text = clases.Util.MensajeFracaso("Usuario o password incorrectos!");
+                output.Text = BackEnd.Util.MensajeFracaso("Usuario o password incorrectos!");
             }
         }
     }

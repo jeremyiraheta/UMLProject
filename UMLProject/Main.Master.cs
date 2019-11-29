@@ -9,11 +9,11 @@ namespace UMLProject
 {
     public partial class Main : System.Web.UI.MasterPage
     {
-        clases.LoginData ldata;
-        clases.DBManager db = new clases.DBManager();
+        BackEnd.LoginData ldata;
+        BackEnd.DBManager db = new BackEnd.DBManager();
         protected void Page_Load(object sender, EventArgs e)
         {
-            ldata= (clases.LoginData)Session["user"];
+            ldata= (BackEnd.LoginData)Session["user"];
             if (ldata != null && ldata.isAdmin)
             {
                 string html = "";
@@ -21,36 +21,30 @@ namespace UMLProject
                 html += "<ul class=\"sub-menu\">";
                 html += "<li><a href=\"Crear.aspx\" title=\"\">Crear Articulo</a></li>";
                 html += "<li><a href=\"Menus.aspx\" title=\"\">Crear Menus</a></li>";
-                html += "<li><a href=\"GArticulos.aspx\" title=\"\">Gestionar Articulos</a></li>";
-                html += "<li><a href=\"GMenus.aspx\" title=\"\">Gestionar Menus</a></li>";
+                html += "<li><a href=\"GArticulos.aspx\" title=\"\">Gestionar Articulos</a></li>";                
                 html += "<li><a href=\"GUsuarios.aspx\" title=\"\">Gestionar Usuarios</a></li>";
-                html += "<li><a href=\"GArticulos.aspx\" title=\"\">Gestionar Cooperativas</a></li>";
+                html += "<li><a href=\"GCooperativas.aspx\" title=\"\">Gestionar Cooperativas</a></li>";
                 html += "<li><a href=\"Logs.aspx\" title=\"\">Ver Historial</a></li>";
+                html += "<li><a href=\"DoQuery.aspx\" title=\"\">Peticiones Directas</a></li>";
                 html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
                 html += "</ul>";
                 userid.InnerHtml = html;
                 userid.Attributes.Add("class", "has-children");
                 menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);                
-            }else if(ldata != null && clases.Util.checkRolByName(ldata.ROL,"Cooperativa"))
+            }else if(ldata != null && BackEnd.Util.checkRolByName(ldata.ROL,"Cooperativa"))
             {
                 string html = "";
                 html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
                 html += "<ul class=\"sub-menu\">";
                 html += "<li><a href=\"Cooperativa.aspx\" title=\"\">Crear Cooperativa</a></li>";
                 html += "<li><a href=\"Cooperativas.aspx\" title=\"\">Gestionar Cooperativa</a></li>";
-                clases.Cooperativa corta = db.getCooperativa(ldata.USERNAME, "Corta");
+                BackEnd.Cooperativa corta = db.getCooperativa(ldata.USERNAME, "Corta");
                 if (corta != null)
                 {
                     html += "<li><a href=\"Corta.aspx\" title=\"\">Crear Corta</a></li>";
                     html += $"<li><a href=\"Corta.aspx?edit=true\" title=\"\">Modificar Corta</a></li>";
                 }
-                clases.Cooperativa pesaje = db.getCooperativa(ldata.USERNAME, "Pesaje");
-                if (pesaje != null)
-                {
-                    html += "<li><a href=\"Pesaje.aspx\" title=\"\">Crear Pesaje</a></li>";
-                    html += "<li><a href=\"Pesaje.aspx?edit=true\" title=\"\">Modificar Corta</a></li>";
-                }
-                clases.Cooperativa transporte = db.getCooperativa(ldata.USERNAME, "Transporte");
+                BackEnd.Cooperativa transporte = db.getCooperativa(ldata.USERNAME, "Transporte");
                 if (transporte != null)
                 {
                     html += "<li><a href=\"Transporte.aspx\" title=\"\">Crear Transporte</a></li>";
@@ -61,7 +55,7 @@ namespace UMLProject
                 userid.InnerHtml = html;
                 userid.Attributes.Add("class", "has-children");
                 menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);
-            }else if (ldata != null && clases.Util.checkRolByName(ldata.ROL, "Cliente"))
+            }else if (ldata != null && BackEnd.Util.checkRolByName(ldata.ROL, "Cliente"))
             {
                 string html = "";
                 html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
@@ -80,13 +74,13 @@ namespace UMLProject
         private string LoadMenus(int tipo = -1)
         {
             string html = "";
-            List<clases.Menus> mns;
-            List<clases.Menus> mlist = new List<clases.Menus>();
+            List<BackEnd.Menus> mns;
+            List<BackEnd.Menus> mlist = new List<BackEnd.Menus>();
             if (tipo == -1)
                 mns = db.getMenuATodos();
             else
                 mns = db.getMenuAUsuario(tipo);
-            foreach (clases.Menus item in mns.OrderBy(u=>u.ORDEN).ToArray())
+            foreach (BackEnd.Menus item in mns.OrderBy(u=>u.ORDEN).ToArray())
             {
                 if (!item.isMain) continue;
                 if (item.CHILDREN.Count == 0)
@@ -104,7 +98,7 @@ namespace UMLProject
                     html += "<li class=\"has-children\">";
                     html += $"<a href=\"#0\" title=\"\">{item.NOMBRE}</a>";
                     html += "<ul class=\"sub-menu\">";
-                    foreach (clases.Menus sitem in item.CHILDREN.OrderBy(o=>o.ORDEN).ToArray())
+                    foreach (BackEnd.Menus sitem in item.CHILDREN.OrderBy(o=>o.ORDEN).ToArray())
                     {
                         if (sitem.ARTICULO != null)
                         {

@@ -74,6 +74,10 @@
     <Content Include="css\base.css" />
     <Content Include="css\main.css" />
     <Content Include="css\vendor.css" />
+    <Content Include="DoQuery.aspx" />
+    <Content Include="GArticulos.aspx" />
+    <Content Include="GCooperativas.aspx" />
+    <Content Include="GUsuarios.aspx" />
     <Content Include="imgs\logo.jpg" />
     <Content Include="js\jquery-3.2.1.min.js" />
     <Content Include="js\main.js" />
@@ -86,7 +90,6 @@
     <Content Include="materialize\js\materialize.min.js" />
     <Content Include="Menus.aspx" />
     <Content Include="Pedido.aspx" />
-    <Content Include="Pesaje.aspx" />
     <Content Include="packages.config" />
     <Content Include="Main.Master" />
     <Content Include="Transporte.aspx" />
@@ -104,9 +107,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clases\DBManager.cs" />
-    <Compile Include="clases\DBModel.cs" />
-    <Compile Include="clases\Util.cs" />
+    <Compile Include="BackEnd\DBManager.cs" />
+    <Compile Include="BackEnd\DBModel.cs" />
+    <Compile Include="BackEnd\Util.cs" />
     <Compile Include="Contenido.aspx.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,6 +145,34 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DoQuery.aspx.cs">
+      <DependentUpon>DoQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DoQuery.aspx.designer.cs">
+      <DependentUpon>DoQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GArticulos.aspx.cs">
+      <DependentUpon>GArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GArticulos.aspx.designer.cs">
+      <DependentUpon>GArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GCooperativas.aspx.cs">
+      <DependentUpon>GCooperativas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GCooperativas.aspx.designer.cs">
+      <DependentUpon>GCooperativas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUsuarios.aspx.cs">
+      <DependentUpon>GUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUsuarios.aspx.designer.cs">
+      <DependentUpon>GUsuarios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -162,13 +193,6 @@
     </Compile>
     <Compile Include="Pedido.aspx.designer.cs">
       <DependentUpon>Pedido.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pesaje.aspx.cs">
-      <DependentUpon>Pesaje.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pesaje.aspx.designer.cs">
-      <DependentUpon>Pesaje.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>

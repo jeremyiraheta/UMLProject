@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace UMLProject.clases
+namespace UMLProject.BackEnd
 {
     public static class Util
     {
@@ -24,6 +24,29 @@ namespace UMLProject.clases
         public static bool checkRolByName(Tipos_Usuarios t, string rol)
         {
             return t.NOMBRE.ToLower() == rol.ToLower();
+        }
+        public static string createTable(string[] headers, List<string[]> rows)
+        {
+            string html = "";
+            html += "<table>";
+            html += "<thead><tr>";
+            foreach (string item in headers)
+            {
+                html += $"<th>{item}</th>";
+            }
+            html += "</tr></thead><tbody>";
+            foreach (string[] item in rows)
+            {
+                html += "<tr>";
+                foreach (string subitem in item)
+                {
+                    html += $"<td>{subitem}</td>";
+                }
+                html += "</tr>";
+            }
+            html += "</tbody></table>";
+
+            return html;
         }
     }
 }
