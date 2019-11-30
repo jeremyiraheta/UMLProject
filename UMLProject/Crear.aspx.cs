@@ -41,7 +41,7 @@ namespace UMLProject
                     output.Text = BackEnd.Util.MensajeFracaso("ID no valida");
                     return;
                 }
-                Label1.Text = "Modificar Articulo";
+                title.Text = "Modificar Articulo";
                 btnOk.Text = "EDITAR";
                 if (!IsPostBack)
                 {                   

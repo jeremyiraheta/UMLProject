@@ -39,8 +39,15 @@ namespace UMLProject
             }
             else if(ds.Tables.Count > 0 || !ds.HasErrors)
             {
-                gridoutput.DataSource = ds;
-                gridoutput.DataBind();              
+                try
+                {
+                    gridoutput.DataSource = ds;
+                    gridoutput.DataBind();
+                }
+                catch {
+                    gridoutput.DataSource = null;
+                    gridoutput.DataBind();
+                }
                 output.Text = "Ejecutado";
             }
             else

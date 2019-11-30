@@ -27,7 +27,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
     <asp:Literal ID="output" runat="server"></asp:Literal>
     <div class="container" style="width: 1000px;">
-        <h2>Crear Contenidos</h2>
+        <h2><asp:Label ID="title" runat="server">Crear Contenidos</asp:Label></h2>
         <div class="row">
             <asp:Label ID="Label1" runat="server" Text="Titulo:"></asp:Label><br />
             <asp:TextBox ID="txtTitulo" runat="server" Width="375px" CssClass="blue"></asp:TextBox>
