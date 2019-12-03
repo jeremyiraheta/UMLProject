@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">    
         <asp:Literal ID="output" runat="server"></asp:Literal>
    <article class="column large-full entry format-standard">       
-       <h2><asp:Label ID="title" runat="server">Crear Usuario</asp:Label></h2>       
+       <h2><asp:Label ID="title" runat="server" Text="Crear Usuario"></asp:Label></h2>       
                     <!--botones texbox-->
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtusername" runat="server" Width="278px"></asp:TextBox><br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Minimo 5 letras, no use letras raras" ForeColor="Red" ControlToValidate="txtusername" ValidationExpression="^(?=.{5,50}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?&lt;![_.])$"></asp:RegularExpressionValidator>

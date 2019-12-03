@@ -380,11 +380,11 @@ namespace UMLProject.BackEnd
         {
             return getProductos()[id];
         }
-        public bool AgregarCooperativa(string user, string nombre, string zona, string telefono, string tipo)
+        public bool AgregarCooperativa(string user, string nombre, string zona, string telefono, TipoCooperativa tipo)
         {
             return isValid(DoQuery($"insert into Cooperativa(id_usuario,nombre,zona,telefono,tipo) values('{user}','{nombre}','{zona}','{telefono}','{tipo}')"));
         }
-        public bool ModificarCooperativa(int id, string user, string nombre, string zona, string telefono, string tipo)
+        public bool ModificarCooperativa(int id, string user, string nombre, string zona, string telefono, TipoCooperativa tipo)
         {
             return isValid(DoQuery($"update Cooperativa set id_usuario='{user}',nombre='{nombre}',zona='{zona}',telefono='{telefono}',tipo='{tipo}' where id_cooperativa={id}"));
         }
@@ -416,23 +416,25 @@ namespace UMLProject.BackEnd
         {
             return getCooperativas()[id];
         }
-        public Cooperativa getCooperativa(string username, string tipo)
+        public Cooperativa getCooperativa(string username, TipoCooperativa tipo)
         {
             Dictionary<int, Cooperativa> c = getCooperativas();
             foreach (Cooperativa i in c.Values)
             {
-                if (i.USUARIO.ID_USUARIO == username && tipo.ToLower() == i.TIPO.ToLower())
+                if (i.USUARIO.ID_USUARIO == username && tipo.ToString().ToLower() == i.TIPO.ToLower())
                     return i;
             }
             return null;
         }
-        public bool AgregarTransporte(int cooperativa, string tipo, string zona, string horarios, decimal limite)
+        public bool AgregarTransporte(int cooperativa, int tipo, string zona, string horarios, decimal limite)
         {
             return isValid(DoQuery($"insert into Transporte(id_cooperativa,tipo,zona,horarios,limite) values({cooperativa},'{tipo}','{zona}','{horarios}','{limite}')"));
         }
-        public bool ModificarTransporte(int id, int cooperativa, string tipo, string zona, string horarios, decimal limite)
+        public bool ModificarTransporte(int id, int cooperativa, int tipo, string zona, string horarios, decimal limite)
         {
-            return isValid(DoQuery($"update Transporte set id_cooperativa={cooperativa},tipo='{tipo}',zona='{zona}',horarios='{horarios}',limite={limite} where id_transporte={id}"));
+            if (getTransporte(id).COOPERATIVA.ID_COOPERATIVA != cooperativa)
+                return false;
+            return isValid(DoQuery($"update Transporte set ID_TIPOTRANSPORTE={tipo},zona='{zona}',horarios='{horarios}',limite={limite} where id_transporte={id}"));
         }
         public bool EliminarTransporte(int id)
         {
@@ -487,7 +489,9 @@ namespace UMLProject.BackEnd
         }
         public bool ModificarCorta(int id, int cooperativa, string zona, decimal maximo)
         {
-            return isValid(DoQuery($"update Corta set id_cooperativa={cooperativa},zona='{zona}',maximo={maximo}"));
+            if (getCorta(id).COOPERATIVA.ID_COOPERATIVA != cooperativa)
+                return false;            
+            return isValid(DoQuery($"update Corta set zona='{zona}',maximo={maximo} where id_corta={id}"));
         }
         public bool EliminarCorta(int id)
         {
@@ -495,7 +499,7 @@ namespace UMLProject.BackEnd
         }
         public Dictionary<int, Corta> getCortas()
         {
-            DataSet ds = DoQuery("select * from Pesaje");
+            DataSet ds = DoQuery("select * from Corta");
             Dictionary<int, Corta> l = new Dictionary<int, Corta>();
             if (isValid(ds))
             {

@@ -71,9 +71,9 @@ namespace UMLProject
         protected void lOKs_Click(object sender, EventArgs e)
         {
             
-            string tipo = "";
-            if (rbtCorte.Checked) tipo = "Corta";
-            if (rbtTransporte.Checked) tipo = "Transporte";
+            BackEnd.TipoCooperativa tipo= BackEnd.TipoCooperativa.CORTA;
+            if (rbtCorte.Checked) tipo = BackEnd.TipoCooperativa.CORTA;
+            if (rbtTransporte.Checked) tipo = BackEnd.TipoCooperativa.TRANSPORTE;
             if(lOKs.Text=="EDITAR")
             {
                 if(db.ModificarCooperativa(int.Parse(Request["id"]), ldata.USERNAME, txtNombre.Text,txtZona.Text, txtTel.Text, tipo))

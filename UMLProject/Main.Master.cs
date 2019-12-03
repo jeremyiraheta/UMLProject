@@ -38,13 +38,13 @@ namespace UMLProject
                 html += "<ul class=\"sub-menu\">";
                 html += "<li><a href=\"Cooperativa.aspx\" title=\"\">Crear Cooperativa</a></li>";
                 html += "<li><a href=\"Cooperativas.aspx\" title=\"\">Gestionar Cooperativa</a></li>";
-                BackEnd.Cooperativa corta = db.getCooperativa(ldata.USERNAME, "Corta");
+                BackEnd.Cooperativa corta = db.getCooperativa(ldata.USERNAME, BackEnd.TipoCooperativa.CORTA);
                 if (corta != null)
                 {
                     html += "<li><a href=\"Corta.aspx\" title=\"\">Crear Corta</a></li>";
                     html += $"<li><a href=\"Corta.aspx?edit=true\" title=\"\">Modificar Corta</a></li>";
                 }
-                BackEnd.Cooperativa transporte = db.getCooperativa(ldata.USERNAME, "Transporte");
+                BackEnd.Cooperativa transporte = db.getCooperativa(ldata.USERNAME, BackEnd.TipoCooperativa.TRANSPORTE);
                 if (transporte != null)
                 {
                     html += "<li><a href=\"Transporte.aspx\" title=\"\">Crear Transporte</a></li>";

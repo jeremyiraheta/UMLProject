@@ -154,4 +154,9 @@ namespace UMLProject.BackEnd
         FACTURACION,
         TIPO_PRODUCTO
     }
+    public enum TipoCooperativa
+    {
+        CORTA,
+        TRANSPORTE
+    }
 }
