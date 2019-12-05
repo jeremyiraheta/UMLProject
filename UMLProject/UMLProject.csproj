@@ -75,8 +75,11 @@
     <Content Include="css\main.css" />
     <Content Include="css\vendor.css" />
     <Content Include="DoQuery.aspx" />
+    <Content Include="Factura.aspx" />
+    <Content Include="Facturar.aspx" />
     <Content Include="GArticulos.aspx" />
     <Content Include="GCooperativas.aspx" />
+    <Content Include="GFacturas.aspx" />
     <Content Include="Global.asax" />
     <Content Include="GUsuarios.aspx" />
     <Content Include="imgs\logo.jpg" />
@@ -91,11 +94,12 @@
     <Content Include="materialize\js\materialize.js" />
     <Content Include="materialize\js\materialize.min.js" />
     <Content Include="Menus.aspx" />
-    <Content Include="Pedido.aspx" />
     <Content Include="packages.config" />
     <Content Include="Main.Master" />
     <Content Include="Transporte.aspx" />
-    <None Include="Properties\PublishProfiles\umlproject.pubxml" />
+    <None Include="Properties\PublishProfiles\azucaricah - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\azucaricah - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\azucaricah - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -154,6 +158,20 @@
     <Compile Include="DoQuery.aspx.designer.cs">
       <DependentUpon>DoQuery.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Factura.aspx.cs">
+      <DependentUpon>Factura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Factura.aspx.designer.cs">
+      <DependentUpon>Factura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facturar.aspx.cs">
+      <DependentUpon>Facturar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facturar.aspx.designer.cs">
+      <DependentUpon>Facturar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GArticulos.aspx.cs">
       <DependentUpon>GArticulos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -167,6 +185,13 @@
     </Compile>
     <Compile Include="GCooperativas.aspx.designer.cs">
       <DependentUpon>GCooperativas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GFacturas.aspx.cs">
+      <DependentUpon>GFacturas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GFacturas.aspx.designer.cs">
+      <DependentUpon>GFacturas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,13 +223,6 @@
     </Compile>
     <Compile Include="Menus.aspx.designer.cs">
       <DependentUpon>Menus.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pedido.aspx.cs">
-      <DependentUpon>Pedido.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pedido.aspx.designer.cs">
-      <DependentUpon>Pedido.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>

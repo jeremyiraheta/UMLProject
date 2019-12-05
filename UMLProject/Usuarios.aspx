@@ -48,15 +48,28 @@
                     </div>                    
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txttel" runat="server" Width="278px" TextMode="Phone"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txttel" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ErrorMessage="Numero no valido formato correcto 0000-0000" ForeColor="Red" ControlToValidate="txttel" ValidationExpression="\d{4}[- ]*\d{4}"></asp:RegularExpressionValidator>
                         <label for="txttel">Telefono</label>
                     </div>                    
                     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtemail" runat="server" Width="278px" TextMode="Email"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtemail" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Mail no valido" ForeColor="Red" ControlToValidate="txtemail" ValidationExpression="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"></asp:RegularExpressionValidator>
                         <label for="txtemail">Correo Electronico</label>
                     </div>
        <div class="input-field col s6 row">
                         <asp:TextBox ID="txtDireccion" runat="server" Width="281px" TextMode="MultiLine" Height="54px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtDireccion" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
                         <label for="txtDireccion">Direccion</label>
+                    </div>
+       <div class="input-field col s6 row">
+           <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+           <asp:DropDownList ID="DropDownList1" runat="server">
+               <asp:ListItem Selected="True" Value="0">Nombre de Primera Mascota</asp:ListItem>
+               <asp:ListItem Value="1">Nombre de pelicula favorita</asp:ListItem>
+               <asp:ListItem Value="2">Nombre de pila</asp:ListItem>
+               <asp:ListItem Value="3">Palabra secreta</asp:ListItem>
+           </asp:DropDownList>
+                        <asp:TextBox ID="txtRespuesta" runat="server" Width="281px" TextMode="MultiLine" Height="54px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtRespuesta" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <label for="txtRespuesta">Respuesta Recuperacion</label>
                     </div>
                     <br />
                     <div class="row" id="buttons" runat="server">

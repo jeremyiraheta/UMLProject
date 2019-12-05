@@ -13,14 +13,14 @@ namespace UMLProject
         BackEnd.DBManager db = new BackEnd.DBManager();
         protected void Page_Load(object sender, EventArgs e)
         {            
-            ldata = (BackEnd.LoginData)Session["user"];
-            bool permit = ldata.isAdmin || ldata.ROL.NOMBRE.ToLower() == "empleado";
+            ldata = (BackEnd.LoginData)Session["user"];            
             if (ldata == null)
             {
                 Response.Redirect("Default.aspx");
                 return;
             }
-            else if (!permit)
+            bool permit = ldata.isAdmin || ldata.ROL.NOMBRE.ToLower() == "empleado";
+            if (!permit)
             {
                 Response.Redirect("Default.aspx");
                 return;

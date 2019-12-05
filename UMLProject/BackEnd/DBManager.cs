@@ -16,7 +16,7 @@ namespace UMLProject.BackEnd
 #else
         const bool PRODUCCION = true;
 #endif
-        string conexion = (PRODUCCION) ? "Server=tcp:utecproyecto.database.windows.net,1433;Initial Catalog=UML;Persist Security Info=False;User ID=jeremy.iraheta;Password=R4damantis;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
+        string conexion = (PRODUCCION) ? "Server=tcp:utecprojects.database.windows.net,1433;Initial Catalog=UML;Persist Security Info=False;User ID=cr0n0triger;Password=R4damantis;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
         
         public DBManager()
         {
@@ -298,13 +298,9 @@ namespace UMLProject.BackEnd
                 return false;
         }
         
-        public bool AgregarPedido(string user, decimal cantidad, decimal total, bool procesado)
+        public bool AgregarPedido(int orden, int producto, int factura, decimal cantidad, decimal subtotal)
         {
-            return isValid(DoQuery($"insert into Pedidos(id_usuario,cantidad,total,procesado) values('{user}',{cantidad},{total},{procesado})"));
-        }
-        public bool ModificarPedido(int id, string user, decimal cantidad, decimal total, bool procesado)
-        {
-            return isValid(DoQuery($"update Pedidos set id_usuario='{user}', cantidad={cantidad},total={total},procesado={procesado} where id_pedido={id}"));
+            return isValid(DoQuery($"insert into Pedidos(norden,id_producto,id_factura,cantidad,subtotal) values({orden},{producto},{factura},{cantidad},{subtotal})"));
         }
         public Dictionary<int, Pedidos> getPedidos()
         {
@@ -320,15 +316,22 @@ namespace UMLProject.BackEnd
                     n.NORDEN = int.Parse(r["NORDEN"].ToString());
                     n.FACTURA = getFactura(int.Parse(r["ID_FACTURA"].ToString()));
                     n.PRODUCTO = getProducto(int.Parse(r["ID_PRODUCTO"].ToString()));
-                    n.SUBTOTAL = decimal.Parse(r["SUBTOTAL"].ToString());
+                    n.SUBTOTAL = decimal.Parse(r["SUBTOTAL"].ToString());                    
                     l.Add(n.ID_PEDIDO, n);
                 }
             }
             return l;
         }
-        public bool AgregarFacturacion(string user)
+        public Facturacion AgregarFacturacion(string user)
         {
-            return isValid(DoQuery($"insert into Facturacion(id_usuario,fecha,activa) values('{user}',GETDATE(),1)"));
+            try
+            {
+                return getFactura(int.Parse(DoQuery("begin insert into articulos(nombre,contenido) values('',''); select @@identity end").Tables[0].Rows[0][0].ToString()));
+            }
+            catch
+            {
+                return null;
+            }
         }
         public bool ModificarFacturacion(int id, bool activa)
         {
@@ -348,7 +351,12 @@ namespace UMLProject.BackEnd
                     n.ID_FACTURA = int.Parse(r["ID_FACTURA"].ToString());
                     n.ACTIVA = bool.Parse(r["ACTIVA"].ToString());
                     n.USUARIO = getUsuario(r["ID_USUARIO"].ToString());
-                    n.FECHA = DateTime.Parse(r["FECHA"].ToString());                    
+                    n.FECHA = DateTime.Parse(r["FECHA"].ToString());
+                    foreach (Pedidos p in getPedidos().Values)
+                    {
+                        if (p.FACTURA.ID_FACTURA == n.ID_FACTURA)
+                            n.PEDIDOS.Add(p.ID_PEDIDO, p);
+                    }
                     l.Add(n.ID_FACTURA, n);
                 }
             }
@@ -357,7 +365,7 @@ namespace UMLProject.BackEnd
         public Facturacion getFactura(int id)
         {
             return getFacturas()[id];
-        }
+        }        
         public Dictionary<int, Tipo_Producto> getProductos()
         {
             DataSet ds = DoQuery("select * from Tipo_Producto");
@@ -582,7 +590,12 @@ namespace UMLProject.BackEnd
             DataSet ds = DoQuery($"select * from usuarios where id_usuario='{user}' and password='{md5p}'");
             if (isValid(ds))
                 if (ds.Tables.Count > 0)
-                    u = getUsuario(user);
+                    if(ds.Tables[0].Rows.Count>0)
+                    try
+                    {
+                        u = getUsuario(user);
+                    }
+                    catch { }
             return u;
         }
         private bool isValid(DataSet ds)

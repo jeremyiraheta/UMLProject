@@ -24,14 +24,28 @@ namespace UMLProject
                 html += "<li><a href=\"GArticulos.aspx\" title=\"\">Gestionar Articulos</a></li>";                
                 html += "<li><a href=\"GUsuarios.aspx\" title=\"\">Gestionar Usuarios</a></li>";
                 html += "<li><a href=\"GCooperativas.aspx\" title=\"\">Gestionar Cooperativas</a></li>";
+                html += "<li><a href=\"GFacturas.aspx\" title=\"\">Gestionar Facturas</a></li>";
                 html += "<li><a href=\"Logs.aspx\" title=\"\">Ver Historial</a></li>";
                 html += "<li><a href=\"DoQuery.aspx\" title=\"\">Peticiones Directas</a></li>";
                 html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
                 html += "</ul>";
                 userid.InnerHtml = html;
                 userid.Attributes.Add("class", "has-children");
-                menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);                
-            }else if(ldata != null && BackEnd.Util.checkRolByName(ldata.ROL,"Cooperativa"))
+                menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);                                
+            }else if (ldata != null && BackEnd.Util.checkRolByName(ldata.ROL, "Empleado"))
+            {
+                string html = "";
+                html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
+                html += "<ul class=\"sub-menu\">";
+                html += "<li><a href=\"GFacturas.aspx\" title=\"\">Gestionar Facturas</a></li>";
+                html += "<li><a href=\"GCooperativas.aspx\" title=\"\">Gestionar Cooperativas</a></li>";
+                html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
+                html += "</ul>";
+                userid.InnerHtml = html;
+                userid.Attributes.Add("class", "has-children");
+                menu.Text = LoadMenus(ldata.ROL.ID_TIPOUSUARIO);
+            }
+            else if(ldata != null && BackEnd.Util.checkRolByName(ldata.ROL,"Cooperativa"))
             {
                 string html = "";
                 html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
@@ -60,8 +74,8 @@ namespace UMLProject
                 string html = "";
                 html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
                 html += "<ul class=\"sub-menu\">";
-                html += "<li><a href=\"Pedido.aspx\" title=\"\">Realizar Pedido</a></li>";
-                html += "<li><a href=\"Pedidos.aspx\" title=\"\">Gestionar Pedidos</a></li>";
+                html += "<li><a href=\"Facturar.aspx\" title=\"\">Realizar Pedido</a></li>";
+                html += "<li><a href=\"GFacturas.aspx\" title=\"\">Gestionar Pedidos</a></li>";
                 html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
                 html += "</ul>";
                 userid.InnerHtml = html;

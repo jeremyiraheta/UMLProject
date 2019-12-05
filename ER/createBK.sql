@@ -1,0 +1,2 @@
+select CONCAT('insert into articulos(NOMBRE,CONTENIDO) values(''',nombre,''',''',contenido,''')') from articulos
+select concat('insert into menus(id_parent,id_articulo,nombre,url,orden) values(',iif(id_parent is null,'null',cast(id_parent as varchar)),',',iif(id_articulo is null,'null',cast(id_articulo as varchar)),',''',nombre,''',''',url,''',',orden,')') from menus

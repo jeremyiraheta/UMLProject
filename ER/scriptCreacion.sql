@@ -174,6 +174,19 @@ create table PEDIDOS (
 go
 
 /*==============================================================*/
+/* Table: RECUPERACION                                          */
+/*==============================================================*/
+create table RECUPERACION (
+   ID_USUARIO           varchar(50)          not null,
+   IDPREGUNTA           int                  not null,
+   RESPUESTA            varchar(200)         not null,
+   constraint PK_RECUPERACION primary key (ID_USUARIO),
+   constraint FK_RECUPERA_REFERENCE_USUARIOS foreign key (ID_USUARIO)
+      references USUARIOS (ID_USUARIO)
+)
+go
+
+/*==============================================================*/
 /* Table: TIPO_TRANSPORTE                                       */
 /*==============================================================*/
 create table TIPO_TRANSPORTE (
@@ -200,6 +213,23 @@ create table TRANSPORTE (
       references TIPO_TRANSPORTE (ID_TIPOTRANSPORTE)
 )
 go
+
+create trigger tPedidos
+on PEDIDOS
+after UPDATE, INSERT, DELETE
+as
+begin
+	declare @id int
+	declare @avg float
+	if Exists(select * from inserted)
+		select @id=ID_FACTURA from inserted
+	if Exists(select * from deleted)
+		select @id=ID_FACTURA from deleted
+	select @avg=SUM(SUBTOTAL) from PEDIDOS where ID_PEDIDO = @id
+	update FACTURACION set TOTALIVA = @avg * 0.13  where ID_FACTURA = @id
+	update FACTURACION set TOTAL = TOTALIVA + @avg where ID_FACTURA = @id
+end
+
 alter table usuarios add unique (dui)
 alter table usuarios add unique (nit)
 alter table usuarios add unique (correo)

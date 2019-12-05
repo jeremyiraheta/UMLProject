@@ -110,12 +110,17 @@ namespace UMLProject.BackEnd
     }
     public class Facturacion
     {
+        public Facturacion()
+        {
+            PEDIDOS = new Dictionary<int, Pedidos>();
+        }
         public int ID_FACTURA { get; set; }
         public Usuarios USUARIO { get; set; }
         public DateTime FECHA { get; set; }
         public decimal TOTALIVA { get; set; }
         public decimal TOTAL { get; set; }
         public bool ACTIVA { get; set; }
+        public Dictionary<int, Pedidos> PEDIDOS { get; set; }
     }
     public class Tipo_Producto
     {
