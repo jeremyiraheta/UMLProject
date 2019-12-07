@@ -26,9 +26,13 @@ namespace UMLProject
                 return;
             }
             Dictionary<int, BackEnd.Tipo_Transporte> trans = db.getTipoTransportes();
-            foreach (BackEnd.Tipo_Transporte item in trans.Values)
+            if(!IsPostBack)
             {
-                ddTipo.Items.Add(new ListItem(item.NOMBRE, item.ID_TIPOTRANSPORTE.ToString()));
+                ddTipo.Items.Clear();
+                foreach (BackEnd.Tipo_Transporte item in trans.Values)
+                {
+                    ddTipo.Items.Add(new ListItem(item.NOMBRE, item.ID_TIPOTRANSPORTE.ToString()));
+                }
             }
             int id = -1;
             BackEnd.Transporte c;
@@ -47,10 +51,13 @@ namespace UMLProject
                 }
                 title.Text = "Modificar Transporte";
                 lOKs.Text = "EDITAR";
-                txtHorario.Text = c.HORARIOS;
-                txtLimite.Text = c.LIMITE.ToString();
-                txtZona.Text = c.ZONA;
-                ddTipo.SelectedValue = c.TIPO.ID_TIPOTRANSPORTE.ToString();
+                if(!IsPostBack)
+                {
+                    txtHorario.Text = c.HORARIOS;
+                    txtLimite.Text = c.LIMITE.ToString();
+                    txtZona.Text = c.ZONA;
+                    ddTipo.SelectedValue = c.TIPO.ID_TIPOTRANSPORTE.ToString();
+                }                
                 LinkButton del = new LinkButton();
                 del.Text = "ELIMINAR";
                 del.OnClientClick = "if ( ! UserDeleteConfirmation()) return false;";
@@ -89,12 +96,9 @@ namespace UMLProject
             else
             {
                 if (db.AgregarTransporte(db.getCooperativa(ldata.USERNAME, BackEnd.TipoCooperativa.TRANSPORTE).ID_COOPERATIVA, int.Parse(ddTipo.SelectedValue), txtZona.Text, txtHorario.Text, decimal.Parse(txtLimite.Text)))
-                {
-                    txtHorario.Text = "";
-                    txtLimite.Text = "";
-                    txtZona.Text = "";
-                    output.Text = BackEnd.Util.MensajeFracaso("Cooperativa de Transporte Agregado");
+                {                    
                     db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.CREAR, BackEnd.Tables.TRANSPORTE);
+                    Response.Redirect("Default.aspx");
                 }
                 else
                 {

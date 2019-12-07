@@ -44,7 +44,7 @@
             </div>
             <br />
             <div class="row">
-                <asp:ListBox ID="imgs" CssClass="browser-default" Width="200" Height="200" runat="server" OnSelectedIndexChanged="imgs_SelectedIndexChanged" AutoPostBack="true"> </asp:ListBox>      <asp:Image ID="img" Height="200" Width="200" CssClass="" runat="server" />                   
+                <asp:ListBox ID="imgs" CssClass="browser-default" Width="400" Height="200" runat="server" OnSelectedIndexChanged="imgs_SelectedIndexChanged" AutoPostBack="true"> </asp:ListBox>      <asp:Image ID="img" Height="200" Width="200" CssClass="" runat="server" />                   
                 </div>
 
         </div>

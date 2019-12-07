@@ -48,21 +48,43 @@ namespace UMLProject
             else if(ldata != null && BackEnd.Util.checkRolByName(ldata.ROL,"Cooperativa"))
             {
                 string html = "";
+                int id=-1;
                 html += $"<a href=\"#0\" title=\"\">{ldata.USERNAME}</a>";
                 html += "<ul class=\"sub-menu\">";
-                html += "<li><a href=\"Cooperativa.aspx\" title=\"\">Crear Cooperativa</a></li>";
-                html += "<li><a href=\"Cooperativas.aspx\" title=\"\">Gestionar Cooperativa</a></li>";
                 BackEnd.Cooperativa corta = db.getCooperativa(ldata.USERNAME, BackEnd.TipoCooperativa.CORTA);
                 if (corta != null)
                 {
-                    html += "<li><a href=\"Corta.aspx\" title=\"\">Crear Corta</a></li>";
-                    html += $"<li><a href=\"Corta.aspx?edit=true\" title=\"\">Modificar Corta</a></li>";
+                    try
+                    {
+                        id = db.getCortaByCoop(corta.ID_COOPERATIVA).ID_CORTA;
+                    }
+                    catch { id = -1; }
+                    if (id == -1)
+                        html += "<li><a href=\"Corta.aspx\" title=\"\">Crear Corta</a></li>";
+                    else
+                        html += $"<li><a href=\"Corta.aspx?id={id}&edit=true\" title=\"\">Modificar Corta</a></li>";
                 }
                 BackEnd.Cooperativa transporte = db.getCooperativa(ldata.USERNAME, BackEnd.TipoCooperativa.TRANSPORTE);
                 if (transporte != null)
                 {
-                    html += "<li><a href=\"Transporte.aspx\" title=\"\">Crear Transporte</a></li>";
-                    html += "<li><a href=\"Transporte.aspx?edit=true\" title=\"\">Modificar Transporte</a></li>";
+                    try
+                    {
+                        id = db.getTransporteByCoop(transporte.ID_COOPERATIVA).ID_TRANSPORTE;
+                    }
+                    catch { id = -1; }
+                    if(id==-1)
+                        html += "<li><a href=\"Transporte.aspx\" title=\"\">Crear Transporte</a></li>";
+                    else
+                        html += $"<li><a href=\"Transporte.aspx?id={id}&edit=true\" title=\"\">Modificar Transporte</a></li>";
+                }
+                if(corta == null && transporte == null)                
+                    html += "<li><a href=\"Cooperativa.aspx\" title=\"\">Crear Cooperativa</a></li>";
+                else
+                {
+                    
+                    if (corta != null) id = corta.ID_COOPERATIVA;
+                    if (transporte != null) id = transporte.ID_COOPERATIVA;
+                    html += $"<li><a href=\"Cooperativa.aspx?id={id}&edit=true\" title=\"\">Modificar Cooperativa</a></li>";
                 }
                 html += "<li><a href=\"Default.aspx?logout=true\" title=\"\">Cerrar Session</a></li>";
                 html += "</ul>";

@@ -7,6 +7,8 @@
         <h2><asp:Label ID="title" runat="server" Text="Agregar transporte"></asp:Label></h2>
         
         <div class="input-field col s12 row">
+            <asp:Label ID="l1" runat="server">Tipo de transporte</asp:Label>
+            <br />
             <asp:DropDownList ID="ddTipo" CssClass="browser-default" runat="server" Width="278px"></asp:DropDownList><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddTipo"></asp:RequiredFieldValidator>
             </div>
         <div class="input-field col s6 row">
@@ -18,8 +20,8 @@
                <label for="horario">Horarios</label>
            </div>
         <div class="input-field col s6 row">
-               <asp:TextBox ID="txtLimite" runat="server" Width="278px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtLimite"></asp:RequiredFieldValidator>
-               <label for="limit_carga">Limite Carga</label>
+               <asp:TextBox ID="txtLimite" TextMode="Number" runat="server" Width="278px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtLimite"></asp:RequiredFieldValidator>
+               <label for="limit_carga">Limite Carga (KILOS)</label>
            </div>
         <div class="row" id="buttons" runat="server">
            <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOK_Click">GUARDAR</asp:LinkButton>

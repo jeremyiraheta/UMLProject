@@ -43,8 +43,11 @@ namespace UMLProject
                 }
                 title.Text = "Modificar Corta";
                 lOKs.Text = "EDITAR";
-                txtCantidad.Text = c.MAXIMO.ToString();
-                txtZona.Text = c.ZONA;
+                if(!IsPostBack)
+                {
+                    txtCantidad.Text = c.MAXIMO.ToString();
+                    txtZona.Text = c.ZONA;
+                }
                 LinkButton del = new LinkButton();
                 del.Text = "ELIMINAR";
                 del.OnClientClick = "if ( ! UserDeleteConfirmation()) return false;";
@@ -83,10 +86,8 @@ namespace UMLProject
             { 
                 if (db.AgregarCorta(c.ID_COOPERATIVA, txtZona.Text, decimal.Parse(txtCantidad.Text)))
                 {
-                    output.Text = BackEnd.Util.MensajeExito("Agregada Correctamente");
-                        db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.CREAR, BackEnd.Tables.CORTA);
-                    txtCantidad.Text = "";
-                    txtZona.Text = "";
+                    db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.CREAR, BackEnd.Tables.CORTA);
+                    Response.Redirect("Default.aspx");
                 }
                 else
                     output.Text = BackEnd.Util.MensajeFracaso("Ocurrio un error en la transaccion");

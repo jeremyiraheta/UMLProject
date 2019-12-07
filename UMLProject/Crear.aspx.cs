@@ -44,11 +44,11 @@ namespace UMLProject
                 title.Text = "Modificar Articulo";
                 btnOk.Text = "EDITAR";
                 if (!IsPostBack)
-                {                   
+                {
+                    txtTitulo.Text = a.NOMBRE;                 
                     txtContenido.Text = Uri.UnescapeDataString(a.CONTENIDO);
                     txtPreview.Text = txtContenido.Text;
                 }
-                txtTitulo.Text = a.NOMBRE;
                 LinkButton del = new LinkButton();
                 del.Text = "ELIMINAR";
                 del.OnClientClick = "if ( ! UserDeleteConfirmation()) return false;";

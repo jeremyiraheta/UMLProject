@@ -24,71 +24,59 @@ namespace UMLProject
             {
                 Response.Redirect("Default.aspx");
                 return;
-            }
+            }            
             List<string> headers = new List<string>();
-            headers.Add("NOMBRE");
-            headers.Add("TELEFONO");
+            headers.Add("COOPERATIVA");
             headers.Add("TIPO");
-            headers.Add("ZONA");
+            headers.Add("TELEFONO");
             headers.Add("REFERENTE");
+            headers.Add("ZONA");
+            headers.Add("MAXIMO");
             if(ldata.isAdmin)
                 headers.Add("EDICION");
             List<string[]> rows = new List<string[]>();
-            foreach (BackEnd.Cooperativa item in db.getCooperativas().Values)
-            {
-                List<string> row = new List<string>();
-                row.Add(item.NOMBRE);
-                row.Add(item.TELEFONO);
-                row.Add(item.TIPO);
-                row.Add(item.ZONA);
-                row.Add(item.USUARIO.NOMBRE + " " + item.USUARIO.APELLIDO);
-                if(ldata.isAdmin)
-                    row.Add($"<a href=\"Cooperativa.aspx?id={item.ID_COOPERATIVA}&edit=true\">Editar</a>");
-                rows.Add(row.ToArray());
-            }
-            List<string> headers2 = new List<string>();
-            headers.Add("COOPERATIVA");
-            headers.Add("ZONA");
-            headers.Add("MAXIMO");
-            if (ldata.isAdmin)
-                headers.Add("EDICION");
-            List<string[]> rows2 = new List<string[]>();
             foreach (BackEnd.Corta item in db.getCortas().Values)
             {
                 List<string> row = new List<string>();
                 row.Add(item.COOPERATIVA.NOMBRE);
+                row.Add(item.COOPERATIVA.TIPO);
+                row.Add(item.COOPERATIVA.TELEFONO);
+                row.Add(item.COOPERATIVA.USUARIO.NOMBRE + " " + item.COOPERATIVA.USUARIO.APELLIDO);
                 row.Add(item.ZONA);
                 row.Add(item.MAXIMO.ToString());
                 if (ldata.isAdmin)
-                    row.Add($"<a href=\"Corta.aspx?id={item.ID_CORTA}&edit=true\">Editar</a>");
+                    row.Add($"<a href=\"Corta.aspx?id={item.ID_CORTA}&edit=true\">Editar Corta</a><br/><a href=\"Cooperativa.aspx?id={item.COOPERATIVA.ID_COOPERATIVA}&edit=true\">Editar Cooperativa</a>");
                 rows.Add(row.ToArray());
             }
-            List<string> headers3 = new List<string>();
-            headers.Add("ID");
-            headers.Add("NOMBRE");
-            headers.Add("TELEFONO");
-            headers.Add("TIPO");
-            headers.Add("ZONA");
-            headers.Add("REFERENTE");
-            if (ldata.isAdmin)
-                headers.Add("EDICION");
-            List<string[]> rows3 = new List<string[]>();
-            foreach (BackEnd.Cooperativa item in db.getCooperativas().Values)
+            List<string> headers2 = new List<string>();
+            headers2.Add("COOPERATIVA");
+            headers2.Add("TIPO");
+            headers2.Add("TELEFONO");            
+            headers2.Add("REFERENTE");
+            headers2.Add("HORARIOS");
+            headers2.Add("TIPO TRANSPORTE");
+            headers2.Add("ZONA");
+            headers2.Add("LIMITE");
+            if(ldata.isAdmin)
+                headers2.Add("EDICION");
+            List<string[]> rows2 = new List<string[]>();
+            foreach (BackEnd.Transporte item in db.getTransportes().Values)
             {
                 List<string> row = new List<string>();
-                row.Add(item.ID_COOPERATIVA.ToString());
-                row.Add(item.NOMBRE);
-                row.Add(item.TELEFONO);
-                row.Add(item.TIPO);
+                row.Add(item.COOPERATIVA.NOMBRE);
+                row.Add(item.COOPERATIVA.TIPO);
+                row.Add(item.COOPERATIVA.TELEFONO);
+                row.Add(item.COOPERATIVA.USUARIO.NOMBRE + " " + item.COOPERATIVA.USUARIO.APELLIDO);
+                row.Add(item.HORARIOS);
+                row.Add(item.TIPO.NOMBRE);
                 row.Add(item.ZONA);
-                row.Add(item.USUARIO.NOMBRE + " " + item.USUARIO.APELLIDO);
+                row.Add(item.LIMITE.ToString());
                 if (ldata.isAdmin)
-                    row.Add($"<a href=\"Transporte.aspx?id={item.ID_COOPERATIVA}&edit=true\">Editar</a>");
-                rows.Add(row.ToArray());
+                    row.Add($"<a href=\"Transporte.aspx?id={item.ID_TRANSPORTE}&edit=true\">Editar Transporte</a><br/><a href=\"Cooperativa.aspx?id={item.COOPERATIVA.ID_COOPERATIVA}&edit=true\">Editar Cooperativa</a>");
+                rows2.Add(row.ToArray());
             }
-            cooperativas.Text = BackEnd.Util.createTable(headers.ToArray(), rows);
-            corta.Text = BackEnd.Util.createTable(headers2.ToArray(), rows2);
-            transporte.Text = BackEnd.Util.createTable(headers3.ToArray(), rows3);
+            corta.Text = BackEnd.Util.createTable(headers.ToArray(), rows);
+            transporte.Text = BackEnd.Util.createTable(headers2.ToArray(), rows2);
         }
     }
 }

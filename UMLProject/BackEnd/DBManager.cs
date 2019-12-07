@@ -496,7 +496,7 @@ namespace UMLProject.BackEnd
         }
         public bool AgregarTransporte(int cooperativa, int tipo, string zona, string horarios, decimal limite)
         {
-            return isValid(DoQuery($"insert into Transporte(id_cooperativa,tipo,zona,horarios,limite) values({cooperativa},'{tipo}','{zona}','{horarios}','{limite}')"));
+            return isValid(DoQuery($"insert into Transporte(id_cooperativa,id_tipotransporte,zona,horarios,limite) values({cooperativa},'{tipo}','{zona}','{horarios}','{limite}')"));
         }
         public bool ModificarTransporte(int id, int cooperativa, int tipo, string zona, string horarios, decimal limite)
         {
@@ -532,6 +532,14 @@ namespace UMLProject.BackEnd
         {
             return getTransportes()[id];
         }
+        public Transporte getTransporteByCoop(int coop)
+        {
+            foreach (Transporte item in getTransportes().Values)
+            {
+                if (item.COOPERATIVA.ID_COOPERATIVA == coop) return item;
+            }
+            return null;
+        }
         public Dictionary<int, Tipo_Transporte> getTipoTransportes()
         {
             DataSet ds = DoQuery("select * from tipo_transporte");
@@ -543,6 +551,7 @@ namespace UMLProject.BackEnd
                     Tipo_Transporte n = new Tipo_Transporte();
                     n.ID_TIPOTRANSPORTE = int.Parse(r["ID_TIPOTRANSPORTE"].ToString());
                     n.NOMBRE = r["NOMBRE"].ToString();
+                    l.Add(n.ID_TIPOTRANSPORTE, n);
                 }
             }
             return l;
@@ -586,6 +595,14 @@ namespace UMLProject.BackEnd
         public Corta getCorta(int id)
         {
             return getCortas()[id];
+        }
+        public Corta getCortaByCoop(int coop)
+        {
+            foreach (Corta item in getCortas().Values)
+            {
+                if (item.COOPERATIVA.ID_COOPERATIVA == coop) return item;
+            }
+            return null;
         }
         public bool AgregarImagen(string nombre, string url)
         {

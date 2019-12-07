@@ -17,7 +17,7 @@
             <asp:Label ID="Label2" runat="server" Text="Menu " Width="200"></asp:Label><asp:Label ID="Label3" runat="server" Text="SubMenu " Width="200"></asp:Label><asp:Label ID="Label4" runat="server" Text="Articulo " Width="200"></asp:Label>            
         </div>
         <div class="row">
-            <asp:ListBox ID="listmenu" CssClass="browser-default" Width="200" Height="200" runat="server" OnSelectedIndexChanged="listmenu_SelectedIndexChanged" AutoPostBack="True"></asp:ListBox><asp:ListBox ID="listsubmenu" CssClass="browser-default" Width="200" Height="200" runat="server" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="listsubmenu_SelectedIndexChanged"></asp:ListBox><asp:ListBox ID="listarticulo" CssClass="browser-default" Width="300" Height="200" runat="server" Enabled="false"></asp:ListBox>
+            <asp:ListBox ID="listmenu" CssClass="browser-default" Width="250" Height="200" runat="server" OnSelectedIndexChanged="listmenu_SelectedIndexChanged" AutoPostBack="True"></asp:ListBox><asp:ListBox ID="listsubmenu" CssClass="browser-default" Width="300" Height="200" runat="server" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="listsubmenu_SelectedIndexChanged"></asp:ListBox><asp:ListBox ID="listarticulo" CssClass="browser-default" Width="300" Height="200" runat="server" Enabled="false"></asp:ListBox>
             <asp:LinkButton runat="server" CssClass="waves-effect waves-light btn-small" Enabled="false" ID="btnVincular" OnClick="btnVincular_Click">Vincular</asp:LinkButton>
         </div>
         <div class="row">

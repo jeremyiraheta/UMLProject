@@ -41,9 +41,13 @@ namespace UMLProject
                 }
                 Label1.Text = "Modificar Cooperativa";
                 lOKs.Text = "EDITAR";
-                txtNombre.Text = c.NOMBRE;
-                txtTel.Text = c.TELEFONO;
-                txtZona.Text = c.ZONA;
+                if(!IsPostBack)
+                {
+                    txtNombre.Text = c.NOMBRE;
+                    txtTel.Text = c.TELEFONO;
+                    txtZona.Text = c.ZONA;
+
+                }
                 if (c.TIPO.ToLower() == "corta")
                     rbtCorte.Checked = true;
                 else
@@ -87,11 +91,8 @@ namespace UMLProject
             {
                 if (db.AgregarCooperativa(ldata.USERNAME, txtNombre.Text, txtZona.Text, txtTel.Text, tipo))
                 {
-                    output.Text = BackEnd.Util.MensajeExito("Cooperativa agregada");
                     db.AgregarLog(ldata.USERNAME, BackEnd.TipoLog.CREAR, BackEnd.Tables.COOPERATIVA);
-                    txtNombre.Text = "";
-                    txtTel.Text = "";
-                    txtZona.Text = "";
+                    Response.Redirect("Default.aspx");
                 }
                 else
                     output.Text = BackEnd.Util.MensajeFracaso("Ocurrio un error en la transaccion");

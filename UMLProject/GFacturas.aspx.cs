@@ -79,7 +79,7 @@ namespace UMLProject
                     row.Add(x.TOTAL.ToString());
                     row.Add(x.ACTIVA ? "Activa" : "Procesada");
                     if (!isClient)
-                        row.Add(x.ACTIVA ? $"<a href=\"GFacturas.aspx?procesar={x.ID_FACTURA}\">Procesar</a>" : $"<a href=\"GFacturas.aspx?activar={x.ID_FACTURA}\">Activar</a>  <a href=\"Factura.aspx?id={x.ID_FACTURA}\" target=\"_BLANK\">Comprobar</a>");
+                        row.Add(x.ACTIVA ? $"<a href=\"GFacturas.aspx?procesar={x.ID_FACTURA}\">Procesar</a> <a href=\"Factura.aspx?id={x.ID_FACTURA}\" target=\"_BLANK\">Comprobar</a>" : $"<a href=\"GFacturas.aspx?activar={x.ID_FACTURA}\">Activar</a>  <a href=\"Factura.aspx?id={x.ID_FACTURA}\" target=\"_BLANK\">Comprobar</a>");
                     else
                         row.Add($"<a href=\"Factura.aspx?id={x.ID_FACTURA}\" target=\"_BLANK\">Imprimir</a>");
                     irows.Add(row.ToArray());

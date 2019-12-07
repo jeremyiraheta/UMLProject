@@ -17,6 +17,7 @@
            </div>
         <div class="input-field col s6 row">
                <asp:TextBox ID="txtTel" runat="server" Width="278px" TextMode="Phone"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtTel"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ErrorMessage="Numero no valido formato correcto 0000-0000" ForeColor="Red" ControlToValidate="txtTel" ValidationExpression="\d{4}[- ]*\d{4}"></asp:RegularExpressionValidator>
                <label for="zona">Telefono</label>
            </div>
         <div class="row">            
