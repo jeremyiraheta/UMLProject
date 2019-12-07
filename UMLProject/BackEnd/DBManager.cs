@@ -164,6 +164,36 @@ namespace UMLProject.BackEnd
         {           
             return getMenus()[id];
         }
+        public bool CrearPreguntaRecuperacion(string user, int pregunta, string respuesta)
+        {
+            return isValid(DoQuery($"insert into Recuperacion values('{user}',{pregunta},'{respuesta}')"));
+        }
+        public int getPregunta(string user)
+        {
+            int r = -1;
+            try
+            {
+                r = int.Parse(DoQuery($"select idpregunta from Recuperacion where id_usuario='{user}'").Tables[0].Rows[0][0].ToString());
+            }
+            catch { }
+            return r;
+        }
+        public bool IsValidRespuesta(string user, string respuesta)
+        {
+            string text1 = respuesta.ToLower().Trim();
+            string text2 = "";
+            try
+            {
+                text2 = DoQuery($"select respuesta where id_usuario='{user}'").Tables[0].Rows[0][0].ToString().ToLower().Trim();
+            }
+            catch { }
+            return text1 == text2;
+        }
+        public bool ModificarPass(string user, string newpass)
+        {
+            string md5p = MD5Hash(newpass);
+            return isValid(DoQuery($"update Usuarios set password='{md5p}' where id_usuario='{user}'"));
+        }
         public bool AgregarUsuario(string user, string pass, int tipo, string nombre, string apellido, string dui, string nit, string telefono, string correo, string direccion)
         {
             string md5p = MD5Hash(pass);
@@ -322,41 +352,54 @@ namespace UMLProject.BackEnd
             }
             return l;
         }
+        public List<Pedidos> getPedidosFactura(int idfactura)
+        {
+            List<Pedidos> ret = new List<Pedidos>();
+            foreach (Pedidos item in getPedidos().Values)
+            {
+                if (item.FACTURA.ID_FACTURA == idfactura) ret.Add(item);
+            }
+            return ret;
+        }
         public Facturacion AgregarFacturacion(string user)
         {
             try
             {
-                return getFactura(int.Parse(DoQuery("begin insert into articulos(nombre,contenido) values('',''); select @@identity end").Tables[0].Rows[0][0].ToString()));
+                return getFactura(int.Parse(DoQuery($"begin insert into facturacion(id_usuario,fecha,activa) values('{user}',GETDATE(),1); select @@identity end").Tables[0].Rows[0][0].ToString()));
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
         public bool ModificarFacturacion(int id, bool activa)
         {
-            return isValid(DoQuery($"update facturacion set activa={Convert.ToInt32(activa)}"));
+            return isValid(DoQuery($"update facturacion set activa={Convert.ToInt32(activa)} where id_factura={id}"));
         }
-        public Dictionary<int, Facturacion> getFacturas()
+        public Dictionary<int, Facturacion> getFacturas(bool filtrar=false)
         {
-            DataSet ds = DoQuery("select * from Facturacion");
+            DataSet ds;
+            if(filtrar)
+                ds = DoQuery("select * from Facturacion where activa=1");
+            else
+                ds = DoQuery("select * from Facturacion");
             Dictionary<int, Facturacion> l = new Dictionary<int, Facturacion>();
             if (isValid(ds))
             {
                 foreach (DataRow r in getDataRows(ds))
                 {
                     Facturacion n = new Facturacion();
-                    n.TOTALIVA = decimal.Parse(r["TOTALIVA"].ToString());
-                    n.TOTAL = decimal.Parse(r["TOTAL"].ToString());
+                    try
+                    {
+                        n.TOTALIVA = decimal.Parse(r["TOTALIVA"].ToString());
+                        n.TOTAL = decimal.Parse(r["TOTAL"].ToString());
+                    }
+                    catch { }
                     n.ID_FACTURA = int.Parse(r["ID_FACTURA"].ToString());
                     n.ACTIVA = bool.Parse(r["ACTIVA"].ToString());
                     n.USUARIO = getUsuario(r["ID_USUARIO"].ToString());
                     n.FECHA = DateTime.Parse(r["FECHA"].ToString());
-                    foreach (Pedidos p in getPedidos().Values)
-                    {
-                        if (p.FACTURA.ID_FACTURA == n.ID_FACTURA)
-                            n.PEDIDOS.Add(p.ID_PEDIDO, p);
-                    }
                     l.Add(n.ID_FACTURA, n);
                 }
             }
@@ -365,7 +408,24 @@ namespace UMLProject.BackEnd
         public Facturacion getFactura(int id)
         {
             return getFacturas()[id];
-        }        
+        }      
+        public Facturacion BuscarFactura(int id)
+        {
+            DataSet ds= DoQuery($"select * from Facturacion where id_factura={id}"); ;
+            Facturacion n = new Facturacion();
+            DataRow r = getFirstDataRow(ds);
+            try
+            {
+                n.TOTALIVA = decimal.Parse(r["TOTALIVA"].ToString());
+                n.TOTAL = decimal.Parse(r["TOTAL"].ToString());
+            }
+            catch { }
+            n.ID_FACTURA = int.Parse(r["ID_FACTURA"].ToString());
+            n.ACTIVA = bool.Parse(r["ACTIVA"].ToString());
+            n.USUARIO = getUsuario(r["ID_USUARIO"].ToString());
+            n.FECHA = DateTime.Parse(r["FECHA"].ToString());            
+            return n;
+        }
         public Dictionary<int, Tipo_Producto> getProductos()
         {
             DataSet ds = DoQuery("select * from Tipo_Producto");

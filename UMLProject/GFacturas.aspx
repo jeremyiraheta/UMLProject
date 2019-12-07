@@ -2,6 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
+    <div id="search" runat="server">
+
+    </div>
     <h2>Gestion de Facturas</h2>
     <asp:Literal ID="facturas" runat="server"></asp:Literal>
 </asp:Content>

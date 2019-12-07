@@ -20,7 +20,7 @@ namespace UMLProject
                 Response.Redirect("Default.aspx");
                 return;
             }
-            bool permit = BackEnd.Util.checkRolByName(ldata.ROL, "cliente") || ldata.isAdmin;
+            bool permit = BackEnd.Util.checkRolByName(ldata.ROL, "cliente") || ldata.isAdmin || BackEnd.Util.checkRolByName(ldata.ROL, "empleado");
             if (!permit)
             {
                 Response.Redirect("Default.aspx");
@@ -33,33 +33,36 @@ namespace UMLProject
                 return;
             }
             BackEnd.Facturacion factura;
+            List<BackEnd.Pedidos> pedidos;
             try
             {
                 factura = db.getFactura(id);
+                pedidos = db.getPedidosFactura(factura.ID_FACTURA);
             }catch
             {
                 Response.Redirect("Default.aspx");
                 return;
             }
-            if(!ldata.isAdmin && factura.USUARIO.ID_USUARIO != ldata.USERNAME)
+            if(!(ldata.isAdmin || BackEnd.Util.checkRolByName(ldata.ROL,"empleado")) && factura.USUARIO.ID_USUARIO != ldata.USERNAME)
             {
                 Response.Redirect("Default.aspx");
                 return;
             }
             string html = "";
-            html += "Tiquet No " + factura.ID_FACTURA;
-            html += "Fecha: " + factura.FECHA;
-            html += "Cliente: " + factura.USUARIO.NOMBRE + " " + factura.USUARIO.APELLIDO;
-            html += "DUI: " + factura.USUARIO.DUI;
+            html += "<table>";
+            html += "<tr><td>Tiquet No </td><td>" + factura.ID_FACTURA + "</td></tr>";
+            html += "<tr><td>Fecha: </td><td>" + factura.FECHA + "</td></tr>";
+            html += "<tr><td>Cliente: </td><td>" + factura.USUARIO.NOMBRE + " " + factura.USUARIO.APELLIDO + "</td></tr>";
+            html += "<tr><td>DUI: </td><td>" + factura.USUARIO.DUI + "</td></tr></table>";
             html += "<b>Detalle</b>";
             html += "<table><tr><th>No</th><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th></tr>";
-            foreach (BackEnd.Pedidos p in factura.PEDIDOS.Values)
+            foreach (BackEnd.Pedidos p in pedidos)
             {
                 html += $"<tr><td>{p.NORDEN}</td><td>{p.PRODUCTO.NOMBRE}</td><td>{p.PRODUCTO.PRECIO}</td><td>{p.CANTIDAD}</td><td>{p.SUBTOTAL}</td></tr>";
             }
             html += "</table>";
-            html += "Total IVA: " + factura.TOTALIVA;
-            html += "Total: " + factura.TOTAL;
+            html += "<table style=\"border-style:double;border-width:2px;margin-left: 190px;\"><tr><td>Total IVA: </td><td>" + factura.TOTALIVA + "</td></tr>";
+            html += "<tr><td>Total: </td><td>" + factura.TOTAL + "</td></tr></table>";
             output.Text = html;
         }
     }

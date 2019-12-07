@@ -96,6 +96,7 @@
     <Content Include="Menus.aspx" />
     <Content Include="packages.config" />
     <Content Include="Main.Master" />
+    <Content Include="RerollPass.aspx" />
     <Content Include="Transporte.aspx" />
     <None Include="Properties\PublishProfiles\azucaricah - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\azucaricah - ReadOnly - FTP.pubxml" />
@@ -232,6 +233,13 @@
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RerollPass.aspx.cs">
+      <DependentUpon>RerollPass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RerollPass.aspx.designer.cs">
+      <DependentUpon>RerollPass.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Transporte.aspx.cs">
       <DependentUpon>Transporte.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -20,12 +20,12 @@ namespace UMLProject
             BackEnd.Usuarios user = db.ValidarUsuario(txtusername.Text, txtpassword.Text);
             if (user != null)
             {
-                BackEnd.LoginData l = new BackEnd.LoginData(user);                
+                BackEnd.LoginData l = new BackEnd.LoginData(user);               
                 Session["user"] = l;
                 Response.Redirect("Default.aspx");
             }else
             {
-                output.Text = BackEnd.Util.MensajeFracaso("Usuario o password incorrectos!");
+                output.Text = BackEnd.Util.MensajeFracaso($"Usuario o password incorrectos! <br/><a href='RerollPass.aspx?id='{txtusername.Text}'>Restaurar password?</a>");
             }
         }
     }

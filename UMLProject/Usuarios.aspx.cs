@@ -43,6 +43,7 @@ namespace UMLProject
                     output.Text = BackEnd.Util.MensajeFracaso("ID no valida");
                     return;
                 }
+                recover.Controls.Clear();
                 title.Text = "Modificar Usuario";
                 lOKs.Text = "EDITAR";
                 pass.Controls.Clear();
@@ -95,9 +96,10 @@ namespace UMLProject
             else
             {
                 if (!db.AgregarUsuario(txtusername.Text, txtpassword.Text, int.Parse(ddTipo.SelectedValue.ToString()), txtname.Text, txtApellido.Text, txtdui.Text, txtnit.Text, txttel.Text, txtemail.Text, txtDireccion.Text))
-                    output.Text = BackEnd.Util.MensajeFracaso("No se completo la transaccion");
+                    output.Text = BackEnd.Util.MensajeFracaso("No se completo la transaccion.<br/>Usuario, DUI, NIT y CORREO deben ser valores unicos");
                 else
                 {
+                    db.CrearPreguntaRecuperacion(txtusername.Text, int.Parse(ddpregunta.SelectedValue.ToString()), txtRespuesta.Text);
                     db.AgregarLog("admin", BackEnd.TipoLog.CREAR, BackEnd.Tables.USUARIOS);
                     Response.Redirect("Login.aspx");
                 }

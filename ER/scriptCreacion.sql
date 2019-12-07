@@ -225,7 +225,7 @@ begin
 		select @id=ID_FACTURA from inserted
 	if Exists(select * from deleted)
 		select @id=ID_FACTURA from deleted
-	select @avg=SUM(SUBTOTAL) from PEDIDOS where ID_PEDIDO = @id
+	select @avg=SUM(SUBTOTAL) from PEDIDOS where ID_FACTURA = @id
 	update FACTURACION set TOTALIVA = @avg * 0.13  where ID_FACTURA = @id
 	update FACTURACION set TOTAL = TOTALIVA + @avg where ID_FACTURA = @id
 end

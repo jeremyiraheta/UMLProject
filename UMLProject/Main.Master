@@ -34,6 +34,9 @@
         function UserDeleteConfirmation() {
             return confirm("Esta seguro que desea eliminar?");
         }
+        function UserProcessConfirmation() {
+            return confirm("Esta seguro que desea procesar el pedido?");
+        }
     </script>
     <style>
         ul{

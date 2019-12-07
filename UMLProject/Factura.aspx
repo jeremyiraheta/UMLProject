@@ -8,13 +8,13 @@
     <title>Comprobante</title>
 </head>
 <body>
+    <div style="border-style:dashed;border-width:2px;width:300px;">
     <img src="/imgs/logo.jpg"  width="200px" height="200px" style="display:inline"/><h2>Tiquet</h2>
     <form id="form1" runat="server">
-    <div>
-        <asp:Literal ID="output" runat="server"></asp:Literal>
-        <div></div>
-        <h6>Imprima como comprobante para retirar pedido</h6>
-    </div>
+    
+        <asp:Literal ID="output" runat="server"></asp:Literal>                  
     </form>
+    </div>
+    <h6><a href="#" onclick="window.print()" name="Click para imprimir">Imprima</a> como comprobante para retirar pedido</h6>    
 </body>
 </html>

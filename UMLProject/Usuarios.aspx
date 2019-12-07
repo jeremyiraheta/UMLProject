@@ -60,18 +60,20 @@
                         <asp:TextBox ID="txtDireccion" runat="server" Width="281px" TextMode="MultiLine" Height="54px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtDireccion" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
                         <label for="txtDireccion">Direccion</label>
                     </div>
-       <div class="input-field col s6 row">
-           <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-           <asp:DropDownList ID="DropDownList1" runat="server">
-               <asp:ListItem Selected="True" Value="0">Nombre de Primera Mascota</asp:ListItem>
-               <asp:ListItem Value="1">Nombre de pelicula favorita</asp:ListItem>
-               <asp:ListItem Value="2">Nombre de pila</asp:ListItem>
-               <asp:ListItem Value="3">Palabra secreta</asp:ListItem>
+       <div class="input-field col s6 row" id="recover" runat="server">
+           <asp:Label ID="Label1" runat="server" Text="Seleccione la pregunta de recuperacion"></asp:Label>
+           <asp:DropDownList ID="ddpregunta" CssClass="browser-default" Width="400px"  runat="server">
+               <asp:ListItem Selected="True" Value="0">Nombre de Primera Mascota?</asp:ListItem>
+               <asp:ListItem Value="1">Nombre de pelicula favorita?</asp:ListItem>
+               <asp:ListItem Value="2">Nombre de pila?</asp:ListItem>
+               <asp:ListItem Value="3">Palabra secreta?</asp:ListItem>
            </asp:DropDownList>
-                        <asp:TextBox ID="txtRespuesta" runat="server" Width="281px" TextMode="MultiLine" Height="54px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtRespuesta" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <label for="txtRespuesta">Respuesta Recuperacion</label>
+                        
+                    
+       <div class="input-field col s6 row" id="Div1" runat="server">
+       <asp:TextBox ID="txtRespuesta" runat="server" Width="281px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtRespuesta" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <label for="txtRespuesta">Respuesta Recuperacion</label></div>
                     </div>
-                    <br />
                     <div class="row" id="buttons" runat="server">
                         <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOKs_Click">REGISTRARSE</asp:LinkButton>
                     </div>
