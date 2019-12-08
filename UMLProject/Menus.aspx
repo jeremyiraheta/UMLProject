@@ -14,7 +14,7 @@
             <asp:LinkButton runat="server" ID="btnNuevo" CssClass="waves-effect waves-light btn-large" Enabled="true" OnClick="btnNuevo_Click">Nuevo</asp:LinkButton>
             </div>
         <div class="row">
-            <asp:Label ID="Label2" runat="server" Text="Menu " Width="200"></asp:Label><asp:Label ID="Label3" runat="server" Text="SubMenu " Width="200"></asp:Label><asp:Label ID="Label4" runat="server" Text="Articulo " Width="200"></asp:Label>            
+            <asp:Label ID="Label2" runat="server" Text="Menu " Width="250"></asp:Label><asp:Label ID="Label3" runat="server" Text="SubMenu " Width="300"></asp:Label><asp:Label ID="Label4" runat="server" Text="Articulo " Width="300"></asp:Label>            
         </div>
         <div class="row">
             <asp:ListBox ID="listmenu" CssClass="browser-default" Width="250" Height="200" runat="server" OnSelectedIndexChanged="listmenu_SelectedIndexChanged" AutoPostBack="True"></asp:ListBox><asp:ListBox ID="listsubmenu" CssClass="browser-default" Width="300" Height="200" runat="server" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="listsubmenu_SelectedIndexChanged"></asp:ListBox><asp:ListBox ID="listarticulo" CssClass="browser-default" Width="300" Height="200" runat="server" Enabled="false"></asp:ListBox>

@@ -127,7 +127,7 @@ namespace UMLProject
                     }
                     else
                     {
-                        html += $"<li><a href=\"{item.URL}\" title=\"\">{item.NOMBRE}</a></li>";
+                        html += $"<li><a href=\"{item.URL}\" target='_BLANK' title=\"\">{item.NOMBRE}</a></li>";
                     }
                 }else
                 {
@@ -142,7 +142,7 @@ namespace UMLProject
                         }
                         else
                         {
-                            html += $"<li><a href=\"{sitem.URL}\" title=\"\">{sitem.NOMBRE}</a></li>";
+                            html += $"<li><a href=\"{sitem.URL}\" target='_BLANK' title=\"\">{sitem.NOMBRE}</a></li>";
                         }                        
                     }
                     html += "</ul></li>";
