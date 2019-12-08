@@ -43,6 +43,7 @@ namespace UMLProject
         {
             Dictionary<int, BackEnd.Menus> mnus = db.getMenus();
             listmenu.Items.Clear();
+            listsubmenu.Items.Clear();
             foreach (BackEnd.Menus item in mnus.Values)
             {
                 if (item.isMain) listmenu.Items.Add(new ListItem(item.NOMBRE, item.ID_MENU.ToString()));
@@ -132,6 +133,9 @@ namespace UMLProject
             {
                 db.DeleteMenu(int.Parse(listmenu.SelectedValue));
             }
+            loadMenus();
+            txtMnombre.Text = "";
+            btnCrear.Text = "Crear";
             output.Text = BackEnd.Util.MensajeExito("Menu Eliminado");
         }
 

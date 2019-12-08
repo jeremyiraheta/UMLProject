@@ -69,7 +69,7 @@ namespace UMLProject
                     List<string> iheaders = new List<string>();
                     iheaders.Add("NO");
                     iheaders.Add("FECHA");
-                    iheaders.Add("TOTAL");
+                    iheaders.Add("TOTAL($)");
                     iheaders.Add("ESTADO");
                     iheaders.Add("EDICION");
                     List<string[]> irows = new List<string[]>();

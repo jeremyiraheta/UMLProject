@@ -35,7 +35,7 @@ namespace UMLProject
                     ddProductos.Items.Add(new ListItem(i.NOMBRE + "(" + i.UNIDAD + ")" + "($" + i.PRECIO + ")", i.ID_PRODUCTO.ToString()));
                 }
             }
-            if (!IsPostBack)
+            if (!IsPostBack && Request["remove"] == null)
                 Session["productos"] = new Dictionary<int, BackEnd.Pedidos>();
             fact = (Dictionary<int, BackEnd.Pedidos>)Session["productos"];
             if (Request["remove"] != null)
@@ -60,7 +60,7 @@ namespace UMLProject
             string html = "";
             foreach (BackEnd.Pedidos p in fact.Values)
             {
-                html += $"<tr><td>{p.NORDEN}</td><td>{p.PRODUCTO.NOMBRE}<td>{p.PRODUCTO.PRECIO}</td><td>{p.CANTIDAD}</td><td>{p.SUBTOTAL}</td><td><a href='Facturar.aspx?remove={p.PRODUCTO.ID_PRODUCTO}'></a></td></tr>";
+                html += $"<tr><td>{p.NORDEN}</td><td>{p.PRODUCTO.NOMBRE}<td>{p.PRODUCTO.PRECIO}</td><td>{p.CANTIDAD}</td><td>{p.SUBTOTAL}</td><td><a href='Facturar.aspx?remove={p.PRODUCTO.ID_PRODUCTO}'>Remover</a></td></tr>";
             }
             tbody.InnerHtml = html;
         }    

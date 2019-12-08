@@ -22,6 +22,7 @@
         <div class="input-field col s6 row">
                <asp:TextBox ID="txtLimite" TextMode="Number" runat="server" Width="278px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtLimite"></asp:RequiredFieldValidator>
                <label for="limit_carga">Limite Carga (KILOS)</label>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Ingrese un valor valido" ForeColor="Red" ControlToValidate="txtLimite" ValidationExpression="^(?!(?:0|0\.0|0\.00)$)[+]?\d+(\.\d|\.\d[0-9])?$"></asp:RegularExpressionValidator>
            </div>
         <div class="row" id="buttons" runat="server">
            <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOK_Click">GUARDAR</asp:LinkButton>

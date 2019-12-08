@@ -69,8 +69,10 @@
                <asp:ListItem Value="3">Palabra secreta?</asp:ListItem>
            </asp:DropDownList>
            <br />
+           <div>
+           <asp:Label ID="l2" runat="server" Text="Respuesta Recuperacion"></asp:Label>
          <asp:TextBox ID="txtRespuesta" runat="server" Width="281px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtRespuesta" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <label for="txtRespuesta">Respuesta Recuperacion</label></div>
+                        </div></div>
                     <div class="row" id="buttons" runat="server">
                         <asp:LinkButton ID="lOKs" CssClass="waves-effect waves-light btn-large" runat="server" OnClick="lOKs_Click">REGISTRARSE</asp:LinkButton>
                     </div>

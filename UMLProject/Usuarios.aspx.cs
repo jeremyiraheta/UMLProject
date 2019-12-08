@@ -66,8 +66,7 @@ namespace UMLProject
                 del.Text = "ELIMINAR";
                 del.OnClientClick = "if ( ! UserDeleteConfirmation()) return false;";
                 del.CssClass = "waves-effect waves-light btn-large";
-                del.Click += Del_Click;
-                buttons.Controls.Add(del);
+                del.Click += Del_Click;                
             }
         }
 

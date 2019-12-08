@@ -12,6 +12,7 @@
         <div class="input-field col s6 row">
                <asp:TextBox ID="txtCantidad" runat="server" Width="278px" TextMode="Number"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtCantidad"></asp:RequiredFieldValidator>
                <label for="cantidad">Cantidad Maxima</label>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Ingrese un valor valido" ForeColor="Red" ControlToValidate="txtCantidad" ValidationExpression="^(?!(?:0|0\.0|0\.00)$)[+]?\d+(\.\d|\.\d[0-9])?$"></asp:RegularExpressionValidator>
            </div>
         
         <div class="row" id="buttons" runat="server">

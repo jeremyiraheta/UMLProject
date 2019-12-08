@@ -310,6 +310,15 @@ namespace UMLProject {
         protected global::System.Web.UI.WebControls.DropDownList ddpregunta;
         
         /// <summary>
+        /// Control l2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l2;
+        
+        /// <summary>
         /// Control txtRespuesta.
         /// </summary>
         /// <remarks>

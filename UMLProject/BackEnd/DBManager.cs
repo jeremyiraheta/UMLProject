@@ -16,7 +16,7 @@ namespace UMLProject.BackEnd
 #else
         const bool PRODUCCION = true;
 #endif
-        string conexion = (PRODUCCION) ? "Server=tcp:utecprojects.database.windows.net,1433;Initial Catalog=UML;Persist Security Info=False;User ID=cr0n0triger;Password=R4damantis;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
+        string conexion =  "Data Source=localhost; Initial Catalog=UML;Integrated Security=true;";
         
         public DBManager()
         {
@@ -59,18 +59,18 @@ namespace UMLProject.BackEnd
             catch (Exception ex) { Console.Write(ex.Message); }
             return ret;
         }
-        public bool Delete(string table, string where)
+        public bool Delete(Tables table, string where)
         {
             bool ret = false;
             try
             {
-                DoQuery($"delete {table} where {where}");
+                DoQuery($"delete {table.ToString()} where {where}");
                 ret = true;
             }
             catch (Exception ex) { Console.Write(ex.Message); }
             return ret;
         }
-        public bool Delete(string table)
+        public bool Delete(Tables table)
         {
             bool ret = false;
             try
@@ -91,6 +91,7 @@ namespace UMLProject.BackEnd
         }
         public bool EliminarArticulo(int id)
         {
+            DoQuery($"update menus set id_articulo=null where id_articulo = {id}");         
             return isValid(DoQuery($"delete Articulos where id_articulo={id}"));
         }
         public Dictionary<int, Articulos> getArticulos()
@@ -128,7 +129,9 @@ namespace UMLProject.BackEnd
         }
         public bool DeleteMenu(int id)
         {
-            return Delete("Menus", "id_menu=" + id.ToString());
+            Delete(Tables.MENUS_USUARIOS, "id_menu=" + id.ToString());
+            Delete(Tables.MENUS, "id_parent=" + id.ToString());
+            return Delete( Tables.MENUS, "id_menu=" + id.ToString());
         }
         public Dictionary<int, Menus> getMenus()
         {
@@ -184,7 +187,7 @@ namespace UMLProject.BackEnd
             string text2 = "";
             try
             {
-                text2 = DoQuery($"select respuesta where id_usuario='{user}'").Tables[0].Rows[0][0].ToString().ToLower().Trim();
+                text2 = DoQuery($"select respuesta from recuperacion where id_usuario='{user}'").Tables[0].Rows[0][0].ToString().ToLower().Trim();
             }
             catch { }
             return text1 == text2;
@@ -458,7 +461,9 @@ namespace UMLProject.BackEnd
         }
         public bool EliminarCooperativa(int id)
         {
-            return Delete("Cooperativa", "id_cooperativa=" + id);
+            Delete(Tables.TRANSPORTE, "id_cooperativa=" + id);
+            Delete(Tables.CORTA, "id_cooperativa=" + id);
+            return Delete(Tables.COOPERATIVA, "id_cooperativa=" + id);
         }
         public Dictionary<int, Cooperativa> getCooperativas()
         {
@@ -506,7 +511,7 @@ namespace UMLProject.BackEnd
         }
         public bool EliminarTransporte(int id)
         {
-            return Delete("Transporte", "id_transporte=" + id);
+            return Delete(Tables.TRANSPORTE, "id_transporte=" + id);
         }
         public Dictionary<int, Transporte> getTransportes()
         {
@@ -572,7 +577,7 @@ namespace UMLProject.BackEnd
         }
         public bool EliminarCorta(int id)
         {
-            return Delete("Corta", "id_corta=" + id);
+            return Delete(Tables.CORTA, "id_corta=" + id);
         }
         public Dictionary<int, Corta> getCortas()
         {

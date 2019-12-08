@@ -9,22 +9,9 @@ namespace UMLProject
 {
     public partial class RerollPass : System.Web.UI.Page
     {
-        BackEnd.LoginData ldata;
         BackEnd.DBManager db = new BackEnd.DBManager();
         protected void Page_Load(object sender, EventArgs e)
-        {
-            
-            ldata = (BackEnd.LoginData)Session["user"];
-            if (ldata == null)
-            {
-                Response.Redirect("Default.aspx");
-                return;
-            }
-            else if (ldata.isAdmin)
-            {
-                Response.Redirect("Default.aspx");
-                return;
-            }
+        {           
             BackEnd.Usuarios u=null;
             try
             {
@@ -33,7 +20,7 @@ namespace UMLProject
             catch { }
             if(u == null)
             {
-                Response.Redirect("Default.aspx");
+                output.Text = BackEnd.Util.MensajeFracaso("No existe ese usuario <a href='Login.aspx'>Regresar</a>");
                 return;
             }
             ddpregunta.SelectedValue = db.getPregunta(u.ID_USUARIO).ToString();

@@ -25,7 +25,7 @@ namespace UMLProject
                 Response.Redirect("Default.aspx");
             }else
             {
-                output.Text = BackEnd.Util.MensajeFracaso($"Usuario o password incorrectos! <br/><a href='RerollPass.aspx?id='{txtusername.Text}'>Restaurar password?</a>");
+                output.Text = BackEnd.Util.MensajeFracaso($"Usuario o password incorrectos! <br/><a href='RerollPass.aspx?id={txtusername.Text}'>Restaurar password?</a>");
             }
         }
     }

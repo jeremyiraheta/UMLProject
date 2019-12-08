@@ -11,8 +11,10 @@
                <asp:ListItem Value="2">Nombre de pila?</asp:ListItem>
                <asp:ListItem Value="3">Palabra secreta?</asp:ListItem>
            </asp:DropDownList>
+        <div>
+        <asp:Label ID="l1" runat="server" Text="Respuesta Recuperacion"></asp:Label>
                         <asp:TextBox ID="txtRespuesta" runat="server" Width="281px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtRespuesta" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <label for="txtRespuesta">Respuesta Recuperacion</label>
+                        </div>
                     </div>
     <div class="input-field col s6 row">
                         <asp:TextBox ID="txtpassword" TextMode="Password" runat="server" Width="278px"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtpassword" runat="server" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
